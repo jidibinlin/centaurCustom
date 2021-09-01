@@ -4,6 +4,11 @@
 (when (require 'evil-collection nil) t
       (evil-collection-init))
 (evil-mode 1)
+(evil-set-leader 'normal (kbd "SPC"))
+
+(evil-define-key 'normal 'global (kbd "<leader>bb") 'ivy-switch-buffer)
+
+(evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
 
 (with-eval-after-load 'evil
   (with-eval-after-load 'company

@@ -6,8 +6,8 @@
 
 
 ;; (setq centaur-logo nil)                        ; Logo file or nil (official logo)
-;; (setq centaur-full-name "user name")           ; User full name
-;; (setq centaur-mail-address "user@email.com")   ; Email address
+(setq centaur-full-name "jidibinlin")           ; User full name
+(setq centaur-mail-address "2694273649@qq.com")   ; Email address
 ;; (setq centaur-proxy "127.0.0.1:1087")          ; HTTP/HTTPS proxy
 ;; (setq centaur-socks-proxy "127.0.0.1:1086")    ; SOCKS proxy
 ;; (setq centaur-server nil)                      ; Enable `server-mode' or not: t or nil
@@ -91,7 +91,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
-  '(org-table ((t (:foreground "#6c71c4" :family "Sarasa Mono SC Nerd"))))
+  '(org-table ((t (:foreground "#6c71c4" :family "Sarasa Mono SC"))))
   )
 
 ;;; custom.el ends here
