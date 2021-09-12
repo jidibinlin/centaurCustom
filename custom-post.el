@@ -26,7 +26,7 @@
 (require 'evil-org-agenda)
 (evil-org-agenda-set-keys)
 
-(setq org-latex-create-formula-image-program 'dvisvgm)
+(setq org-preview-latex-default-process 'dvisvgm)
 
 (defun my-org-latex-yas()
   (yas-minor-mode)
@@ -43,6 +43,19 @@
         ;; location of tex2svg executable
         "/lib/node_modules/mathjax-node-cli/bin/tex2svg"))
 
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(require 'centaur-tabs)
+(centaur-tabs-mode t)
+(global-set-key (kbd "C-<left>")  'centaur-tabs-backward)
+(global-set-key (kbd "C-<right>") 'centaur-tabs-forward)
+;;(desktop-save-mode t)
+
+
+
+;; 任何配置都应该放在这个前面
 (use-package rime
   :custom
   (default-input-method "rime"))
@@ -58,6 +71,3 @@
 (add-hook 'text-mode-hook
           (lambda ()
             (variable-pitch-mode 1)))
-
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))

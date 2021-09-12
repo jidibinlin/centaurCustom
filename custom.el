@@ -14,6 +14,7 @@
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'tencent)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
 (setq centaur-theme 'doom-monokai-classic)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+;;(setq centaur-theme 'auto)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 ;; (setq centaur-completion-style 'minibuffer)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 ;; (setq centaur-restore-frame-geometry nil)      ; Restore the frame's geometry at startup: t or nil
@@ -84,6 +85,7 @@
  ;; If there is more than one, they won't work right.
  '(doom-modeline-buffer-file-name-style 'file-name)
  '(doom-modeline-height 15)
+ '(centaur-tabs-style "slant")
  )
 
  (custom-set-faces
