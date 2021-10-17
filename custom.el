@@ -10,7 +10,7 @@
 (setq centaur-mail-address "2694273649@qq.com")   ; Email address
 ;; (setq centaur-proxy "127.0.0.1:1087")          ; HTTP/HTTPS proxy
 ;; (setq centaur-socks-proxy "127.0.0.1:1086")    ; SOCKS proxy
-;; (setq centaur-server nil)                      ; Enable `server-mode' or not: t or nil
+(setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
 (setq centaur-theme 'doom-monokai-classic)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
@@ -83,17 +83,66 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(centaur-tabs-style "slant")
  '(doom-modeline-buffer-file-name-style 'file-name)
  '(doom-modeline-height 15)
- '(centaur-tabs-style "slant")
- )
+ '(warning-suppress-log-types '((comp))))
 
- (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  '(org-table ((t (:foreground "#6c71c4" :family "Sarasa Mono SC"))))
-  )
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(aw-leading-char-face ((t (:inherit font-lock-keyword-face :bold t :height 2.0))))
+ '(aw-minibuffer-leading-char-face ((t (:inherit font-lock-keyword-face :bold t :height 1.0))))
+ '(aw-mode-line-face ((t (:inherit mode-line-emphasis :bold t))))
+ '(dashboard-heading ((t (:inherit (font-lock-string-face bold)))))
+ '(diff-hl-change ((t (:foreground "#FD971F" :background nil))))
+ '(diff-hl-delete ((t (:inherit diff-removed :background nil))))
+ '(diff-hl-insert ((t (:inherit diff-added :background nil))))
+ '(doom-modeline-buffer-file ((t (:inherit (mode-line bold)))))
+ '(flycheck-posframe-background-face ((t (:inherit tooltip))))
+ '(flycheck-posframe-border-face ((t (:inherit font-lock-comment-face))))
+ '(flycheck-posframe-face ((t (:foreground "#A6E22E"))))
+ '(flycheck-posframe-info-face ((t (:foreground "#A6E22E"))))
+ '(git-timemachine-minibuffer-author-face ((t (:inherit success))))
+ '(git-timemachine-minibuffer-detail-face ((t (:inherit warning))))
+ '(ivy-minibuffer-match-face-1 ((t (:foreground "#7f7f80"))))
+ '(ivy-posframe ((t (:inherit tooltip))))
+ '(ivy-posframe-border ((t (:background "#555556"))))
+ '(lsp-headerline-breadcrumb-path-error-face ((t :underline (:style wave :color "#E74C3C") :inherit lsp-headerline-breadcrumb-path-face)))
+ '(lsp-headerline-breadcrumb-path-hint-face ((t :underline (:style wave :color "#A6E22E") :inherit lsp-headerline-breadcrumb-path-face)))
+ '(lsp-headerline-breadcrumb-path-info-face ((t :underline (:style wave :color "#A6E22E") :inherit lsp-headerline-breadcrumb-path-face)))
+ '(lsp-headerline-breadcrumb-path-warning-face ((t :underline (:style wave :color "#E6DB74") :inherit lsp-headerline-breadcrumb-path-face)))
+ '(lsp-headerline-breadcrumb-symbols-error-face ((t :inherit lsp-headerline-breadcrumb-symbols-face :underline (:style wave :color "#E74C3C"))))
+ '(lsp-headerline-breadcrumb-symbols-hint-face ((t :inherit lsp-headerline-breadcrumb-symbols-face :underline (:style wave :color "#A6E22E"))))
+ '(lsp-headerline-breadcrumb-symbols-info-face ((t :inherit lsp-headerline-breadcrumb-symbols-face :underline (:style wave :color "#A6E22E"))))
+ '(lsp-headerline-breadcrumb-symbols-warning-face ((t :inherit lsp-headerline-breadcrumb-symbols-face :underline (:style wave :color "#E6DB74"))))
+ '(lsp-ui-sideline-code-action ((t (:inherit warning))))
+ '(macrostep-expansion-highlight-face ((t (:inherit tooltip :extend t))))
+ '(org-ellipsis ((t (:foreground nil))))
+ '(org-pomodoro-mode-line ((t (:inherit warning))))
+ '(org-pomodoro-mode-line-break ((t (:inherit success))))
+ '(org-pomodoro-mode-line-overtime ((t (:inherit error))))
+ '(org-table ((t (:foreground "#6c71c4" :family "Sarasa Mono SC"))))
+ '(pulse-highlight-face ((t (:inherit region))))
+ '(pulse-highlight-start-face ((t (:inherit region))))
+ '(symbol-overlay-default-face ((t (:inherit (region bold)))))
+ '(transient-posframe ((t (:inherit tooltip))))
+ '(transient-posframe-border ((t (:background "#555556"))))
+ '(which-key-posframe ((t (:inherit tooltip))))
+ '(which-key-posframe-border ((t (:background "#555556"))))
+ '(ztreep-arrow-face ((t (:inherit font-lock-comment-face))))
+ '(ztreep-diff-header-face ((t (:inherit (diff-header bold)))))
+ '(ztreep-diff-header-small-face ((t (:inherit diff-file-header))))
+ '(ztreep-diff-model-add-face ((t (:inherit diff-nonexistent))))
+ '(ztreep-diff-model-diff-face ((t (:inherit diff-removed))))
+ '(ztreep-diff-model-ignored-face ((t (:inherit font-lock-doc-face :strike-through t))))
+ '(ztreep-diff-model-normal-face ((t (:inherit font-lock-doc-face))))
+ '(ztreep-expand-sign-face ((t (:inherit font-lock-function-name-face))))
+ '(ztreep-header-face ((t (:inherit diff-header))))
+ '(ztreep-leaf-face ((t (:inherit diff-index))))
+ '(ztreep-node-face ((t (:inherit font-lock-variable-name-face)))))
 
 ;;; custom.el ends here
