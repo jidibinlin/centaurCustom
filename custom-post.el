@@ -53,21 +53,16 @@
 (global-set-key (kbd "C-<right>") 'centaur-tabs-forward)
 ;;(desktop-save-mode t)
 
+;;(setq lsp-csharp-server-install "/usr/share/omnisharp-roslyn")
+(setq lsp-csharp-server-path "/usr/bin/omnisharp")
+(require 'dap-netcore)
 
-
-;; 任何配置都应该放在这个前面
-(use-package rime
-  :custom
-  (default-input-method "rime"))
-(setq rime-show-candidate 'posframe)
-(define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
-
-(setq rime-disable-predicates
-      '(rime-predicate-evil-mode-p
-        rime-predicate-after-alphabet-char-p
-        rime-predicate-prog-in-code-p
-        rime-predicate-current-input-punctuation-p
-        ))
-(add-hook 'text-mode-hook
-          (lambda ()
-            (variable-pitch-mode 1)))
+(if
+    (string-match "Microsoft"
+                  (with-temp-buffer (shell-command "uname -r" t)
+                                    (goto-char (point-max))
+                                    (delete-char -1)
+                                    (buffer-string)))
+    (load "~/.centaurCustom/rime.el")
+  (message "Not running under Linux subsystem for Windows")
+  )
