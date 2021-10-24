@@ -13,11 +13,10 @@
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'doom-monokai-classic)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
-;;(setq centaur-theme 'auto)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
-;; (setq centaur-completion-style 'minibuffer)    ; Completion display style: minibuffer or childframe
+(setq centaur-theme 'night)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
-;; (setq centaur-restore-frame-geometry nil)      ; Restore the frame's geometry at startup: t or nil
+(setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
 ;; (setq centaur-lsp 'eglot)                      ; Set LSP client: lsp-mode, eglot or nil
 ;; (setq centaur-lsp-format-on-save-ignore-modes '(c-mode c++-mode)) ; Ignore format on save for some languages
 (setq centaur-chinese-calendar nil)              ; Use Chinese calendar or not: t or nil
@@ -28,7 +27,6 @@
 ;; (setq package-user-dir (locate-user-emacs-file (format "elpa-%s" emacs-major-version)))
 ;; (setq desktop-base-file-name (format ".emacs-%s.desktop" emacs-major-version))
 ;; (setq desktop-base-lock-name (format ".emacs-%s.desktop.lock" emacs-major-version))
-
 ;; Fonts
 (when (display-graphic-p)
   ;; Set default font
@@ -86,7 +84,8 @@
  '(centaur-tabs-style "slant")
  '(doom-modeline-buffer-file-name-style 'file-name)
  '(doom-modeline-height 15)
- '(warning-suppress-log-types '((comp)))
+ '(warning-suppress-log-types '((lsp-mode)))
+ '(warning-suppress-types '((comp)))
  )
 
 
