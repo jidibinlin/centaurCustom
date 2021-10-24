@@ -33,13 +33,15 @@
   (yas-activate-extra-mode 'latex-mode))
 (add-hook 'org-mode-hook #'my-org-latex-yas)
 
-(setq company-minimum-prefix-length 3
-      company-idle-delay 0.5)
-;;(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (*1024 1024))
-(setq lsp-idle-delay 0.5)
-(setq lsp-ui-sideline-delay 0.5)
-(setq lsp-ui-doc-delay 0.5)
+
+
+;; (setq company-minimum-prefix-length 3
+;;       company-idle-delay 0.5)
+;; ;;(setq gc-cons-threshold 100000000)
+;; (setq read-process-output-max (*1024 1024))
+;; (setq lsp-idle-delay 0.5)
+;; (setq lsp-ui-sideline-delay 0.5)
+;; (setq lsp-ui-doc-delay 0.5)
 
 
 
@@ -74,23 +76,3 @@
     (load "~/.centaurCustom/rime.el")
   (message "Not running under Linux subsystem for Windows")
   )
-
-
-
-
-;; 任何配置都应该放在这个前面
-(use-package rime
-  :custom
-  (default-input-method "rime"))
-(setq rime-show-candidate 'posframe)
-(define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
-
-(setq rime-disable-predicates
-      '(rime-predicate-evil-mode-p
-        rime-predicate-after-alphabet-char-p
-        rime-predicate-prog-in-code-p
-        rime-predicate-current-input-punctuation-p
-        ))
-(add-hook 'text-mode-hook
-          (lambda ()
-            (variable-pitch-mode 1)))
