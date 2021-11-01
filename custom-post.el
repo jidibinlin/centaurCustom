@@ -8,6 +8,7 @@
 (evil-set-leader 'normal (kbd "SPC"))
 
 
+
 (evil-define-key 'normal 'global (kbd "<leader>bb") 'ivy-switch-buffer)
 (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
 (evil-define-key 'normal 'global (kbd "<leader>pf") 'counsel-fzf)
@@ -76,8 +77,11 @@
 (require 'winum)
 (winum-mode)
 
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(require 'org-download)
+
+;; Drag-and-drop to `dired`
+(add-hook 'dired-mode-hook 'org-download-enable)
+
 
 ;;(desktop-save-mode t)
 
