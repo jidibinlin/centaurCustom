@@ -73,9 +73,14 @@
 ;; (global-set-key (kbd "C-<right>") 'centaur-tabs-forward)
 
 ;; C-x C-f disable posframe mode
-(ivy-posframe-mode 0)
+;;(ivy-posframe-mode 0)
 (require 'winum)
 (winum-mode)
+(require 'org-download)
+
+
+;; Drag-and-drop to `dired`
+(add-hook 'dired-mode-hook 'org-download-enable)
 
 
 ;;(desktop-save-mode t)
@@ -83,6 +88,9 @@
 ;;(setq lsp-csharp-server-install "/usr/share/omnisharp-roslyn")
 (setq lsp-csharp-server-path "/usr/bin/omnisharp")
 (require 'dap-netcore)
+(add-hook 'pdf-view-mode '(pdf-view-midnight-minor-mode 0))
+
+;; pdf-tools
 
 (if
     (string-match "Microsoft"

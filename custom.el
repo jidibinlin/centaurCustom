@@ -12,8 +12,8 @@
 ;; (setq centaur-socks-proxy "127.0.0.1:1086")    ; SOCKS proxy
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
-(setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'night)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-package-archives 'tencent)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
+(setq centaur-theme 'day)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 (setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
@@ -37,7 +37,7 @@
                                       :font font
                                       :height (cond (sys/mac-x-p 130)
                                                     (sys/win32p 105)
-                                                    (t 105))))
+                                                    (t 123))))
 
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Apple Color Emoji" "Segoe UI Symbol" "Symbola" "Symbol")
@@ -95,6 +95,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-table ((t (:foreground "#6c71c4" :family "Sarasa Mono SC"))))
+
+ ;; '(org-level-1 ((t (:inherit outline-1 :height 1.7  :foreground "#FD971F"))))
+ ;; '(org-level-2 ((t (:inherit outline-2 :height 1.6  :foreground "#A6E22E"))))
+ ;; '(org-level-3 ((t (:inherit outline-3 :height 1.5  :foreground "#66D9EF"))))
+ ;; '(org-level-4 ((t (:inherit outline-4 :height 1.4  :foreground "#E6DB74"))))
+ ;; '(org-level-5 ((t (:inherit outline-5 :height 1.3  :foreground "#A1EFE4"))))
+ ;; '(org-level-6 ((t (:inherit outline-6 :height 1.2  :foreground "#A6E22E"))))
+ ;; '(org-level-7 ((t (:inherit outline-7 :height 1.1  :foreground "#F92672"))))
+ ;; '(org-level-8 ((t (:inherit outline-8 :height 1.0  :foreground "#66D9EF"))))
+
  )
 
 ;;; custom.el ends here
