@@ -54,7 +54,8 @@
 ;; ;;(setq gc-cons-threshold 100000000)
 ;; (setq read-process-output-max (*1024 1024))
 ;; (setq lsp-idle-delay 0.5)
-;; (setq lsp-ui-sideline-delay 0.5) ;; (setq lsp-ui-doc-delay 0.5)
+;; (setq lsp-ui-sideline-delay 0.5)
+;; (setq lsp-ui-doc-delay 0.5)
 
 
 
@@ -73,14 +74,35 @@
 ;; (global-set-key (kbd "C-<right>") 'centaur-tabs-forward)
 
 ;; C-x C-f disable posframe mode
-(ivy-posframe-mode 0)
+;;(ivy-posframe-mode 0)
 (require 'winum)
 (winum-mode)
+(require 'org-download)
+
+
+;; Drag-and-drop to `dired`
+(add-hook 'dired-mode-hook 'org-download-enable)
 
 (require 'org-download)
 
 ;; Drag-and-drop to `dired`
 (add-hook 'dired-mode-hook 'org-download-enable)
+
+(defun my-yank-image-from-win-clipboard-through-powershell()
+  "to simplify the logic, use c:/Users/Public as temporary directoy, and move it into current directoy"
+  (interactive)
+  (let* ((powershell "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe")
+         (file-name (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))
+         ;; (file-path-powershell (concat "c:/Users/\$env:USERNAME/" file-name))
+         (file-path-wsl (concat "./img/" file-name))
+         )
+    ;; (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"C:/Users/\\$env:USERNAME/" file-name "\\\")\""))
+    (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"C:/Users/Public/" file-name "\\\")\""))
+    (rename-file (concat "/mnt/c/Users/Public/" file-name) file-path-wsl)
+    (insert (concat "#+ATTR_LATEX: :width 0.5\\textwidth\n"))
+    (org-indent-line)
+    (insert (concat "[[file:" file-path-wsl "]] "))
+    ))
 
 
 ;;(desktop-save-mode t)
@@ -88,6 +110,9 @@
 ;;(setq lsp-csharp-server-install "/usr/share/omnisharp-roslyn")
 (setq lsp-csharp-server-path "/usr/bin/omnisharp")
 (require 'dap-netcore)
+(add-hook 'pdf-view-mode '(pdf-view-midnight-minor-mode 0))
+
+;; pdf-tools
 
 (if
     (string-match "Microsoft"

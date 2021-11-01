@@ -37,7 +37,7 @@
                                       :font font
                                       :height (cond (sys/mac-x-p 130)
                                                     (sys/win32p 105)
-                                                    (t 105))))
+                                                    (t 110))))
 
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Apple Color Emoji" "Segoe UI Symbol" "Symbola" "Symbol")
@@ -95,6 +95,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-table ((t (:foreground "#6c71c4" :family "Sarasa Mono SC"))))
+
  '(org-level-1 ((t (:inherit outline-1 :height 1.2  :foreground "#FD971F"))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.2  :foreground "#A6E22E"))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.2  :foreground "#66D9EF"))))
