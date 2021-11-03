@@ -7,13 +7,20 @@
 
 (evil-set-leader 'normal (kbd "SPC"))
 
+(defun counsel-projectile-rg-ignore-log ()
+  "for company x4 project ignore the log directory when use rg searching"
+  (interactive)
+  (counsel-projectile-rg "-g !log/ -g !logic_log/ -g !res/proto/ -g !/res/mapData/ -g !/res/all_config/ -g !*.conf")
+  )
+
 
 
 (evil-define-key 'normal 'global (kbd "<leader>bb") 'ivy-switch-buffer)
 (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
 (evil-define-key 'normal 'global (kbd "<leader>pf") 'counsel-fzf)
 (evil-define-key 'normal 'global (kbd "<leader>s") 'counsel-rg)
-(evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
+;;(evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
+(evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg-ignore-log)
 
 (evil-define-key 'normal 'global (kbd "<leader>1") 'winum-select-window-1)
 (evil-define-key 'normal 'global (kbd "<leader>2") 'winum-select-window-2)
@@ -46,8 +53,7 @@
 
 (defun my-org-latex-yas()
   (yas-minor-mode)
-  (yas-activate-extra-mode 'latex-mode))
-(add-hook 'org-mode-hook #'my-org-latex-yas)
+  (yas-activate-extra-mode 'latex-mode)) (add-hook 'org-mode-hook #'my-org-latex-yas)
 
 (setq company-minimum-prefix-length 2
       company-idle-delay 0.0)
@@ -88,24 +94,15 @@
 ;; Drag-and-drop to `dired`
 (add-hook 'dired-mode-hook 'org-download-enable)
 
-(defun my-yank-image-from-win-clipboard-through-powershell()
-  "to simplify the logic, use c:/Users/Public as temporary directoy, and move it into current directoy"
-  (interactive)
-  (let* ((powershell "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe")
-         (file-name (format-time-string "screenshot_%Y%m%d_%H%M%S.png"))
-         ;; (file-path-powershell (concat "c:/Users/\$env:USERNAME/" file-name))
-         (file-path-wsl (concat "./img/" file-name))
-         )
-    ;; (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"C:/Users/\\$env:USERNAME/" file-name "\\\")\""))
-    (shell-command (concat powershell " -command \"(Get-Clipboard -Format Image).Save(\\\"C:/Users/Public/" file-name "\\\")\""))
-    (rename-file (concat "/mnt/c/Users/Public/" file-name) file-path-wsl)
-    (insert (concat "#+ATTR_LATEX: :width 0.5\\textwidth\n"))
-    (org-indent-line)
-    (insert (concat "[[file:" file-path-wsl "]] "))
-    ))
-
-
 ;;(desktop-save-mode t)
+
+;; evil-surround
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
+
 
 ;;(setq lsp-csharp-server-install "/usr/share/omnisharp-roslyn")
 (setq lsp-csharp-server-path "/usr/bin/omnisharp")

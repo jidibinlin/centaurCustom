@@ -13,7 +13,7 @@
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'tencent)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'day)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-theme 'night)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 (setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
@@ -37,7 +37,7 @@
                                       :font font
                                       :height (cond (sys/mac-x-p 130)
                                                     (sys/win32p 105)
-                                                    (t 110))))
+                                                    (t 105))))
 
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Apple Color Emoji" "Segoe UI Symbol" "Symbola" "Symbol")
@@ -86,6 +86,63 @@
  '(doom-modeline-height 15)
  '(warning-suppress-log-types '((lsp-mode)))
  '(warning-suppress-types '((comp)))
+ '(lsp-file-watch-ignored-directories
+   '(;;x4-ignored directorys
+     "[/\\\\]res/all_config"
+     "[/\\\\]res/mapData"
+     "[/\\\\]res/proto"
+     "[/\\\\]log"
+     "[/\\\\]logic_log"
+     ;;SCM tools
+     "[/\\\\]\\.git\\'"
+     "[/\\\\]\\.github\\'"
+     "[/\\\\]\\.circleci\\'"
+     "[/\\\\]\\.hg\\'"
+     "[/\\\\]\\.bzr\\'"
+     "[/\\\\]_darcs\\'"
+     "[/\\\\]\\.svn\\'"
+     "[/\\\\]_FOSSIL_\\'"
+     ;; IDE or build tools
+     "[/\\\\]\\.idea\\'"
+     "[/\\\\]\\.ensime_cache\\'"
+     "[/\\\\]\\.eunit\\'"
+     "[/\\\\]node_modules"
+     "[/\\\\]\\.yarn\\'"
+     "[/\\\\]\\.fslckout\\'"
+     "[/\\\\]\\.tox\\'"
+     "[/\\\\]dist\\'"
+     "[/\\\\]dist-newstyle\\'"
+     "[/\\\\]\\.stack-work\\'"
+     "[/\\\\]\\.bloop\\'"
+     "[/\\\\]\\.metals\\'"
+     "[/\\\\]target\\'"
+     "[/\\\\]\\.ccls-cache\\'"
+     "[/\\\\]\\.vscode\\'"
+     "[/\\\\]\\.venv\\'"
+     ;; Autotools output
+     "[/\\\\]\\.deps\\'"
+     "[/\\\\]build-aux\\'"
+     "[/\\\\]autom4te.cache\\'"
+     "[/\\\\]\\.reference\\'"
+     ;; Clojure
+     "[/\\\\]\\.lsp\\'"
+     "[/\\\\]\\.clj-kondo\\'"
+     "[/\\\\]\\.shadow-cljs\\'"
+     "[/\\\\]\\.babel_cache\\'"
+     "[/\\\\]\\.cpcache\\'"
+     "[/\\\\]\\checkouts\\'"
+     ;; .Net Core build-output
+     "[/\\\\]bin/Debug\\'"
+     "[/\\\\]obj\\'"
+     ;; OCaml and Dune
+     "[/\\\\]_opam\\'"
+     "[/\\\\]_build\\'"
+     ;; nix-direnv
+     "[/\\\\]\\.direnv\\'")
+   )
+ '(lsp-lua-completion-call-snippet "Replace")
+ '(lsp-lua-workspace-ignore-dir ["res/all_config/" ".vscode" "res/proto" "log/" "mapData/" "*.xml" "*.dat" "sql"])
+ '(lsp-lua-workspace-max-preload 500)
  )
 
 
