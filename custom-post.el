@@ -27,9 +27,9 @@
 
 
 (use-package evil-collection
+  :ensure t
   :demand t
   :after evil
-  :ensure t
   :config
   (evil-collection-init)
   )
@@ -40,13 +40,25 @@
   (counsel-projectile-rg "-g !log/ -g !logic_log/ -g !res/proto/ -g !/res/mapData/ -g !/res/all_config/ -g !*.conf")
   )
 
+;; (use-package evil-org
+;;   :demand t
+;;   :ensure t
+;;   :config
+;;   (add-hook 'org-mode-hook 'evil-org-mode)
+;;   (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+;;   )
+;; (require 'evil-org-agenda)
+;; (evil-org-agenda-set-keys)
+
 (use-package evil-org
-  :demand t
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+  :ensure t
+  :after (:any org org-agenda)
+  :init
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
+  :hook ((org-mode . 'evil-org-mode)
+         (org-mdoe . 'org-superstar-mode)
+         )
   )
 
 (setq org-preview-latex-default-process 'dvisvgm)
@@ -55,8 +67,8 @@
 ;;   (yas-minor-mode)
 ;;   (yas-activate-extra-mode 'latex-mode)) (add-hook 'org-mode-hook #'my-org-latex-yas)
 
-(setq company-minimum-prefix-length 2
-      company-idle-delay 0.0)
+(setq company-minimum-prefix-length 2)
+(setq company-idle-delay 0.0)
 
 ;; (use-package org-latex-impatient
 ;;   :defer t
@@ -77,6 +89,7 @@
 
 (use-package winum
   :demand t
+  :ensure t
   :config
   (winum-mode t)
   (evil-define-key 'normal 'global (kbd "<leader>1") 'winum-select-window-1)
@@ -92,6 +105,7 @@
   )
 
 (use-package org-download
+  :ensure t
   :config
   :hook ((org-mode dired-mode) . org-download-enable)
   )
@@ -106,24 +120,25 @@
   (global-evil-surround-mode 1))
 
 (use-package laas
+  :ensure t
   :hook (LaTeX-mode . laas-mode)
   :config ; do whatever here
   (aas-set-snippets 'laas-mode
-    ;; set condition!
-    :cond #'texmathp ; expand only while in math
-    "supp" "\\supp"
-    "On" "O(n)"
-    "O1" "O(1)"
-    "Olog" "O(\\log n)"
-    "Olon" "O(n \\log n)"
-    ;; bind to functions!
-    "Sum" (lambda () (interactive)
-            (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
-    "Span" (lambda () (interactive)
-             (yas-expand-snippet "\\Span($1)$0"))
-    ;; add accent snippets
-    :cond #'laas-object-on-left-condition
-    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
+                    ;; set condition!
+                    :cond #'texmathp ; expand only while in math
+                    "supp" "\\supp"
+                    "On" "O(n)"
+                    "O1" "O(1)"
+                    "Olog" "O(\\log n)"
+                    "Olon" "O(n \\log n)"
+                    ;; bind to functions!
+                    "Sum" (lambda () (interactive)
+                            (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
+                    "Span" (lambda () (interactive)
+                             (yas-expand-snippet "\\Span($1)$0"))
+                    ;; add accent snippets
+                    :cond #'laas-object-on-left-condition
+                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
 
 ;;(setq lsp-csharp-server-install "/usr/share/omnisharp-roslyn")
 (setq lsp-csharp-server-path "/usr/bin/omnisharp")
@@ -137,3 +152,10 @@
     (load "~/.centaurCustom/rime.el")
   (message "Not running under Linux subsystem for Windows")
   )
+
+;; set the posframe position to the screen center
+(defun ivy-posframe-display-at-frame-center(str)
+  (ivy-posframe--display str #'posframe-poshandler-frame-center)
+  )
+(setf (alist-get t ivy-posframe-display-functions-alist)
+      #'ivy-posframe-display-at-frame-center)

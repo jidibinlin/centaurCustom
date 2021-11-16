@@ -10,7 +10,7 @@
 (setq centaur-mail-address "2694273649@qq.com")   ; Email address
 ;; (setq centaur-proxy "127.0.0.1:1087")          ; HTTP/HTTPS proxy
 ;; (setq centaur-socks-proxy "127.0.0.1:1086")    ; SOCKS proxy
-(setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
+(setq centaur-server nil)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
 (setq centaur-theme 'doom-nord-light)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
@@ -21,7 +21,27 @@
 ;; (setq centaur-lsp-format-on-save-ignore-modes '(c-mode c++-mode)) ; Ignore format on save for some languages
 (setq centaur-chinese-calendar nil)              ; Use Chinese calendar or not: t or nil
 ;;(setq centaur-prettify-symbols-alist t)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
-;;(setq centaur-prettify-org-symbols-alist t)  ; Alist of symbol prettifications for `org-mode'
+;; (setq centaur-prettify-org-symbols-alist '(("[ ]" . ?☐)
+;;     ("[X]" . ?☑)
+;;     ("[-]" . ?⛝)
+
+;;     ("#+ARCHIVE:" . ?📦)
+;;     ("#+AUTHOR:" . ?👤)
+;;     ("#+CREATOR:" . ?💁)
+;;     ("#+DATE:" . ?📆)
+;;     ("#+DESCRIPTION:" . ?⸙)
+;;     ("#+EMAIL:" . ?📧)
+;;     ("#+OPTIONS:" . ?⛭)
+;;     ("#+SETUPFILE:" . ?⛮)
+;;     ("#+TAGS:" . ?🏷)
+;;     ("#+TITLE:" . ?📓)
+
+;;     ("#+begin_src" . ?✎)
+;;     ("#+end_src" . ?□)
+;;     ("#+begin_quote" . ?»)
+;;     ("#+end_quote" . ?«)
+;;     ("#+headers" . ?☰)
+;;     ("#+results:" . ?💻)))  ; Alist of symbol prettifications for `org-mode'
 ;; For Emacs devel
 ;; (setq package-user-dir (locate-user-emacs-file (format "elpa-%s" emacs-major-version)))
 ;; (setq desktop-base-file-name (format ".emacs-%s.desktop" emacs-major-version))
@@ -36,7 +56,7 @@
                                       :font font
                                       :height (cond (sys/mac-x-p 130)
                                                     (sys/win32p 105)
-                                                    (t 105))))
+                                                    (t 117))))
 
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Apple Color Emoji" "Segoe UI Symbol" "Symbola" "Symbol")
@@ -96,7 +116,8 @@
  '(lsp-lua-diagnostics-disable [ "lowercase-global" ])
  '(lsp-lua-workspace-max-preload 2000)
  '(warning-suppress-log-types '((lsp-mode)))
- '(warning-suppress-types '((comp))))
+ '(warning-suppress-types '((comp)))
+ )
 
 
 (custom-set-faces
@@ -104,6 +125,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
  '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#FD971F"))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.2 :foreground "#A6E22E"))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.2 :foreground "#66D9EF"))))
