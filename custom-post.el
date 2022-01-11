@@ -1,5 +1,5 @@
 (use-package evil
-  :ensure t
+  ;;:ensure t
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
@@ -11,8 +11,10 @@
   (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
   (evil-define-key 'normal 'global (kbd "<leader>pf") 'counsel-fzf)
   (evil-define-key 'normal 'global (kbd "<leader>s") 'counsel-rg)
-  ;;(evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
-  (evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg-ignore-log)
+  (define-key c-mode-base-map (kbd "C-c C-c") 'comment-or-uncomment-region)
+
+  (evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
+  ;;(evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg-ignore-log)
 
   (with-eval-after-load 'evil
     (with-eval-after-load 'company
@@ -23,11 +25,17 @@
       (evil-define-key nil company-active-map (kbd "C-j") #'company-select-next)
       (evil-define-key nil company-active-map (kbd "C-k") #'company-select-previous)
       ))
+
+
+  :hook ((go-mode) . (lambda ()
+                       (evil-define-key 'normal 'go-mode-map (kbd "gd") #'lsp-find-definition)
+                       )
+         )
   )
 
 
 (use-package evil-collection
-  :ensure t
+  ;;  :ensure t
   :demand t
   :after evil
   :config
@@ -37,7 +45,7 @@
 (defun counsel-projectile-rg-ignore-log ()
   "for company x4 project ignore the log directory when use rg searching"
   (interactive)
-  (counsel-projectile-rg "-g !log/ -g !logic_log/ -g !res/proto/ -g !/res/mapData/ -g !/res/all_config/ -g !*.conf")
+  (counsel-projectile-rg "-g !log/ -g !logic_log/ -g !res/proto/ -g !/res/mapData/ -g !/res/all_config/ -g !*.conf -g !.ccls-cache/")
   )
 
 ;; (use-package evil-org
@@ -50,34 +58,39 @@
 ;; (require 'evil-org-agenda)
 ;; (evil-org-agenda-set-keys)
 
-(use-package evil-org
-  :ensure t
-  :after (:any org org-agenda)
-  :init
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys)
-  :hook ((org-mode . 'evil-org-mode)
-         (org-mdoe . 'org-superstar-mode)
-         )
-  )
+;; (use-package evil-org
+;;   :ensure t
+;;   :after (:any org org-agenda)
+;;   :init
+;;   (require 'evil-org-agenda)
+;;   (evil-org-agenda-set-keys)
+;;   :hook (
+;;          ;;(org-mode . 'evil-org-mode)
+;;          (org-mode . 'org-superstar-mode)
+;;          (org-mode . (lambda () evil-org-mode))
+;;          )
+;;   )
+
 
 (setq org-preview-latex-default-process 'dvisvgm)
 
-;; (defun my-org-latex-yas()
-;;   (yas-minor-mode)
-;;   (yas-activate-extra-mode 'latex-mode)) (add-hook 'org-mode-hook #'my-org-latex-yas)
+(defun my-org-latex-yas()
+  (yas-minor-mode)
+  (yas-activate-extra-mode 'latex-mode)) (add-hook 'org-mode-hook #'my-org-latex-yas)
 
-(setq company-minimum-prefix-length 2)
-(setq company-idle-delay 0.0)
+(setq company-minimum-prefix-length 3)
+(setq company-idle-delay 0.5)
 
-;; (use-package org-latex-impatient
-;;   :defer t
-;;   :hook (org-mode . org-latex-impatient-mode)
-;;   :init
-;;   (setq org-latex-impatient-tex2svg-bin
-;;         ;; location of tex2svg executable
-;;         "/lib/node_mo;; dules/mathjax-node-cli/bin/tex2svg"))
-:win
+
+(use-package org-latex-impatient
+  :defer t
+  :hook (org-mode . org-latex-impatient-mode)
+  :hook (org-mode . my-org-latex-yas)
+  :init
+  (setq org-latex-impatient-tex2svg-bin
+        ;; location of tex2svg executable
+        "/lib/node_modules/mathjax-node-cli/bin/tex2svg"))
+
 ;; centaur tabs
 ;; (require 'centaur-tabs)
 ;; (centaur-tabs-mode t)
@@ -89,7 +102,7 @@
 
 (use-package winum
   :demand t
-  :ensure t
+  ;;  :ensure t
   :config
   (winum-mode t)
   (evil-define-key 'normal 'global (kbd "<leader>1") 'winum-select-window-1)
@@ -105,22 +118,68 @@
   )
 
 (use-package org-download
-  :ensure t
+  ;;:ensure t
   :config
   :hook ((org-mode dired-mode) . org-download-enable)
   )
+(use-package dap-mode
+  :hook((c++-mode) . (lambda () (
+                            require 'dap-cpptools
+                            require 'dap-go
+                            )))
+  )
+
+(use-package slime
+  ;;  :ensure t
+  :after (lisp-mode)
+  ;; :init
+  :config
+  (slime-setup '(slime-fancy slime-quicklisp slime-asdf))
+  (setq inferior-lisp-program "sbcl")
+  )
+
+(use-package eaf
+  :demand
+  :load-path "~/.emacs.d/site-lisp/emacs-application-framework" ; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
+  :custom
+                                        ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
+  (eaf-browser-continue-where-left-off t)
+  (eaf-browser-enable-adblocker t)
+  (browse-url-browser-function 'eaf-open-browser)
+  :config
+  (defalias 'browse-web #'eaf-open-browser)
+  (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
+
+(require 'eaf-browser)
+
+(use-package lispy
+  ;;  :ensure t
+  :hook((lisp-mode) . (lambda () (lispy-mode 1)))
+  )
+
+;; (use-package cmake-mode
+;;   :ensure t
+;;   )
+;; (use-package cmake-font-lock
+;;   :ensure t
+;;   :after (cmake-mode)
+;;   )
+;; (use-package cmake-ide
+;;   :ensure t
+;;   :after (cmake-mode)
+;;   )
 
 ;;(desktop-save-mode t)
 
 ;; evil-surround
 (use-package evil-surround
-  :ensure t
+  ;; :ensure t
   :demand t
   :config
   (global-evil-surround-mode 1))
 
 (use-package laas
-  :ensure t
+  ;;  :ensure t
   :hook (LaTeX-mode . laas-mode)
   :config ; do whatever here
   (aas-set-snippets 'laas-mode
@@ -143,15 +202,18 @@
 ;;(setq lsp-csharp-server-install "/usr/share/omnisharp-roslyn")
 (setq lsp-csharp-server-path "/usr/bin/omnisharp")
 
-(if
-    (string-match "Microsoft"
-                  (with-temp-buffer (shell-command "uname -r" t)
-                                    (goto-char (point-max))
-                                    (delete-char -1)
-                                    (buffer-string)))
-    (load "~/.centaurCustom/rime.el")
-  (message "Not running under Linux subsystem for Windows")
-  )
+;; rime only for linux
+;; (if
+;;     (string-match "Microsoft"
+;;                   (with-temp-buffer (shell-command "uname -r" t)
+;;                                     (goto-char (point-max))
+;;                                     (delete-char -1)
+;;                                     (buffer-string)))
+;;     (load "~/.centaurCustom/rime.el")
+;;   (message "Not running under Linux subsystem for Windows"))
+
+(load "~/.centaurCustom/rime.el")
+
 
 ;; set the posframe position to the screen center
 (defun ivy-posframe-display-at-frame-center(str)

@@ -23,6 +23,6 @@
 ;;         rime-predicate-current-input-punctuation-p
 ;;         ))
 
-(add-hook 'text-mode-hook
-          (lambda ()
-            (variable-pitch-mode 0)))
+;; (add-hook 'text-mode-hook
+;;           (lambda ()
+;;             (variable-pitch-mode 0)))

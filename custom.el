@@ -8,12 +8,12 @@
 ;; (setq centaur-logo nil)                        ; Logo file or nil (official logo)
 (setq centaur-full-name "jidibinlin")           ; User full name
 (setq centaur-mail-address "2694273649@qq.com")   ; Email address
-;; (setq centaur-proxy "127.0.0.1:1087")          ; HTTP/HTTPS proxy
-;; (setq centaur-socks-proxy "127.0.0.1:1086")    ; SOCKS proxy
-(setq centaur-server nil)                      ; Enable `server-mode' or not: t or nil
+;;(setq centaur-proxy "127.0.0.1:1087")          ; HTTP/HTTPS proxy
+;;(setq centaur-socks-proxy "127.0.0.1:7890")    ; SOCKS proxy
+(setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'doom-nord-light)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-theme 'light)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 (setq centaur-restore-frame-geometry nil)      ; Restore the frame's geometry at startup: t or nil
@@ -21,27 +21,28 @@
 ;; (setq centaur-lsp-format-on-save-ignore-modes '(c-mode c++-mode)) ; Ignore format on save for some languages
 (setq centaur-chinese-calendar nil)              ; Use Chinese calendar or not: t or nil
 ;;(setq centaur-prettify-symbols-alist t)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
-;; (setq centaur-prettify-org-symbols-alist '(("[ ]" . ?☐)
-;;     ("[X]" . ?☑)
-;;     ("[-]" . ?⛝)
+(setq centaur-prettify-org-symbols-alist '(("[ ]" . ?☐)
+                                           ("[X]" . ?☑)
+                                           ("[-]" . ?⛝)
 
-;;     ("#+ARCHIVE:" . ?📦)
-;;     ("#+AUTHOR:" . ?👤)
-;;     ("#+CREATOR:" . ?💁)
-;;     ("#+DATE:" . ?📆)
-;;     ("#+DESCRIPTION:" . ?⸙)
-;;     ("#+EMAIL:" . ?📧)
-;;     ("#+OPTIONS:" . ?⛭)
-;;     ("#+SETUPFILE:" . ?⛮)
-;;     ("#+TAGS:" . ?🏷)
-;;     ("#+TITLE:" . ?📓)
+                                           ("#+ARCHIVE:" . ?📦)
+                                           ("#+AUTHOR:" . ?👤)
+                                           ("#+CREATOR:" . ?💁)
+                                           ("#+DATE:" . ?📆)
+                                           ("#+DESCRIPTION:" . ?⸙)
+                                           ("#+EMAIL:" . ?📧)
+                                           ("#+OPTIONS:" . ?⛭)
+                                           ("#+SETUPFILE:" . ?⛮)
+                                           ("#+TAGS:" . ?🏷)
+                                           ("#+TITLE:" . ?📓)
 
-;;     ("#+begin_src" . ?✎)
-;;     ("#+end_src" . ?□)
-;;     ("#+begin_quote" . ?»)
-;;     ("#+end_quote" . ?«)
-;;     ("#+headers" . ?☰)
-;;     ("#+results:" . ?💻)))  ; Alist of symbol prettifications for `org-mode'
+                                           ("#+begin_src" . ?✎)
+                                           ("#+end_src" . ?□)
+                                           ("#+begin_quote" . ?»)
+                                           ("#+end_quote" . ?«)
+                                           ("#+headers" . ?☰)
+                                           ("#+results:" . ?💻)))  ; Alist of symbol prettifications for `org-mode'
+
 ;; For Emacs devel
 ;; (setq package-user-dir (locate-user-emacs-file (format "elpa-%s" emacs-major-version)))
 ;; (setq desktop-base-file-name (format ".emacs-%s.desktop" emacs-major-version))
@@ -49,14 +50,14 @@
 ;; Fonts
 (when (display-graphic-p)
   ;; Set default font
-  (cl-loop for font in '( "SF Mono" "Hack" "Source Code Pro" "Fira Code"
+  (cl-loop for font in '( "SFMono Nerd Font Mono" "Hack" "Source Code Pro" "Fira Code"
                           "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas")
            when (font-installed-p font)
            return (set-face-attribute 'default nil
                                       :font font
                                       :height (cond (sys/mac-x-p 130)
                                                     (sys/win32p 105)
-                                                    (t 117))))
+                                                    (t 122))))
 
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Apple Color Emoji" "Segoe UI Symbol" "Symbola" "Symbol")
@@ -103,11 +104,10 @@
  '(auth-source-save-behavior nil)
  '(centaur-tabs-style "slant")
  '(doom-modeline-buffer-file-name-style 'file-name)
+ '(doom-modeline-window-width-limit fill-column)
  '(doom-modeline-height 12)
- '(lsp-file-watch-ignored-directories
-   '( "[/\\\\]res/all_config" "[/\\\\]res/mapData" "[/\\\\]res/proto" "[/\\\\]log" "[/\\\\]logic_log" "[/\\\\]\\.git\\'" "[/\\\\]\\.github\\'" "[/\\\\]\\.circleci\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.yarn\\'" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.venv\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]\\.lsp\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.babel_cache\\'" "[/\\\\]\\.cpcache\\'" "[/\\\\]\\checkouts\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "[/\\\\]_opam\\'" "[/\\\\]_build\\'" "[/\\\\]\\.direnv\\'"))
- '(lsp-lua-workspace-library (ht ("res/config" t)
-                                 ("src/global/util" t)))
+ ;; '(lsp-lua-workspace-library (ht ("res/config" t)
+ ;;                                 ("src/global/util" t)))
  ;;'(lsp-lua-completion-call-snippet "Replace")
  '(lsp-lua-completion-call-snippet "Disable")
  '(lsp-lua-workspace-ignore-dir
@@ -117,6 +117,9 @@
  '(lsp-lua-workspace-max-preload 2000)
  '(warning-suppress-log-types '((lsp-mode)))
  '(warning-suppress-types '((comp)))
+ '(dap-auto-configure-features '(sessions locals controls tooltip))
+ ;; '(inferior-lisp-program "sbcl")
+ '(pixel-scroll-mode t)
  )
 
 
@@ -125,7 +128,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
+ ;;'(org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
  '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#FD971F"))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.2 :foreground "#A6E22E"))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.2 :foreground "#66D9EF"))))
