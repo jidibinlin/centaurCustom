@@ -50,7 +50,7 @@
 ;; Fonts
 (when (display-graphic-p)
   ;; Set default font
-  (cl-loop for font in '( "SFMono Nerd Font" "Hack" "Source Code Pro" "Fira Code"
+  (cl-loop for font in '( "SFMono Nerd Font Mono" "Hack" "Source Code Pro" "Fira Code"
                           "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas")
            when (font-installed-p font)
            return (set-face-attribute 'default nil
