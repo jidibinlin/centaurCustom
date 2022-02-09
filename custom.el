@@ -13,7 +13,7 @@
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'light)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-theme 'auto)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 (setq centaur-restore-frame-geometry nil)      ; Restore the frame's geometry at startup: t or nil
@@ -50,12 +50,12 @@
 ;; Fonts
 (when (display-graphic-p)
   ;; Set default font
-  (cl-loop for font in '( "SFMono Nerd Font Mono" "Hack" "Source Code Pro" "Fira Code"
+  (cl-loop for font in '( "SFMono Nerd Font" "Hack" "Source Code Pro" "Fira Code"
                           "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas")
            when (font-installed-p font)
            return (set-face-attribute 'default nil
                                       :font font
-                                      :height (cond (sys/mac-x-p 130)
+                                      :height (cond (sys/mac-x-p 150)
                                                     (sys/win32p 105)
                                                     (t 122))))
 

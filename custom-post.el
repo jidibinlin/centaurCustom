@@ -138,19 +138,19 @@
   (setq inferior-lisp-program "sbcl")
   )
 
-(use-package eaf
-  :demand
-  :load-path "~/.emacs.d/site-lisp/emacs-application-framework" ; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
-  :custom
-                                        ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
-  (eaf-browser-continue-where-left-off t)
-  (eaf-browser-enable-adblocker t)
-  (browse-url-browser-function 'eaf-open-browser)
-  :config
-  (defalias 'browse-web #'eaf-open-browser)
-  (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
+;; (use-package eaf
+;;   :demand
+;;   :load-path "~/.emacs.d/site-lisp/emacs-application-framework" ; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
+;;   :custom
+;;                                         ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
+;;   (eaf-browser-continue-where-left-off t)
+;;   (eaf-browser-enable-adblocker t)
+;;   (browse-url-browser-function 'eaf-open-browser)
+;;   :config
+;;   (defalias 'browse-web #'eaf-open-browser)
+;;   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
 
-(require 'eaf-browser)
+;; (require 'eaf-browser)
 
 (use-package lispy
   ;;  :ensure t
@@ -202,22 +202,22 @@
 ;;(setq lsp-csharp-server-install "/usr/share/omnisharp-roslyn")
 (setq lsp-csharp-server-path "/usr/bin/omnisharp")
 
-;; rime only for linux
-;; (if
-;;     (string-match "Microsoft"
-;;                   (with-temp-buffer (shell-command "uname -r" t)
-;;                                     (goto-char (point-max))
-;;                                     (delete-char -1)
-;;                                     (buffer-string)))
-;;     (load "~/.centaurCustom/rime.el")
-;;   (message "Not running under Linux subsystem for Windows"))
-
-(load "~/.centaurCustom/rime.el")
-
-
 ;; set the posframe position to the screen center
 (defun ivy-posframe-display-at-frame-center(str)
   (ivy-posframe--display str #'posframe-poshandler-frame-center)
   )
 (setf (alist-get t ivy-posframe-display-functions-alist)
       #'ivy-posframe-display-at-frame-center)
+
+
+;;rime only for windows
+(if
+    (string-match "Microsoft"
+                  (with-temp-buffer (shell-command "uname -r" t)
+                                    (goto-char (point-max))
+                                    (delete-char -1)
+                                    (buffer-string)))
+    (load "~/.centaurCustom/rime.el")
+  (message "Not running under Linux subsystem for Windows"))
+
+;;(load "~/.centaurCustom/rime.el")
