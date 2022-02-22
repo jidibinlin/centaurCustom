@@ -33,13 +33,23 @@
          )
   )
 
-
 (use-package evil-collection
   ;;  :ensure t
   :demand t
   :after evil
   :config
   (evil-collection-init)
+  )
+
+(use-package olivetti
+  :diminish
+  :hook (org-mode . olivetti-mode)
+  :bind ("<f7>" . olivetti-mode)
+  :init (setq olivetti-body-width 0.85))
+
+(use-package org-superstar
+  :hook (org-mode . org-superstar-mode)
+  :init (setq org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
   )
 
 (defun counsel-projectile-rg-ignore-log ()
@@ -206,8 +216,12 @@
 (defun ivy-posframe-display-at-frame-center(str)
   (ivy-posframe--display str #'posframe-poshandler-frame-center)
   )
+(defun ivy-posframe-display-at-frame-top-center(str)
+  (ivy-posframe--display str #'posframe-poshandler-frame-top-center)
+  )
+
 (setf (alist-get t ivy-posframe-display-functions-alist)
-      #'ivy-posframe-display-at-frame-center)
+      #'ivy-posframe-display-at-frame-top-center)
 
 
 ;;rime only for windows
