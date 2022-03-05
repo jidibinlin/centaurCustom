@@ -13,10 +13,10 @@
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'doom-nord-light)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-theme 'doom-one-light)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
-(setq centaur-restore-frame-geometry nil)      ; Restore the frame's geometry at startup: t or nil
+(setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
 (setq centaur-lsp 'lsp-mode)                      ; Set LSP client: lsp-mode, eglot or nil
 ;; (setq centaur-lsp-format-on-save-ignore-modes '(c-mode c++-mode)) ; Ignore format on save for some languages
 (setq centaur-chinese-calendar nil)              ; Use Chinese calendar or not: t or nil
@@ -51,17 +51,17 @@
 (setq org-roam-v2-ack t)
 (when (display-graphic-p)
   ;; Set default font
-  (cl-loop for font in '( "SFMono Nerd Font Mono" "Hack" "Source Code Pro" "Fira Code"
-                          "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas")
+  (cl-loop for font in '("DejaVu Sans Mono" "SFMono Nerd Font Mono" "SFMono Nerd Font"  "Hack" "Source Code Pro" "Fira Code"
+                         "Menlo" "Monaco" "Consolas")
            when (font-installed-p font)
            return (set-face-attribute 'default nil
                                       :font font
                                       :height (cond (sys/mac-x-p 150)
                                                     (sys/win32p 105)
-                                                    (t 122))))
+                                                    (t 110))))
 
   ;; Specify font for all unicode characters
-  (cl-loop for font in '("Apple Color Emoji" "Segoe UI Symbol" "Symbola" "Symbol")
+  (cl-loop for font in '("Symbol" "Symbola" "SFMono Nerd Font" "Apple Color Emoji" "Segoe UI Symbol")
            when (font-installed-p font)
            return(set-fontset-font t 'unicode font nil 'prepend))
 
@@ -104,7 +104,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(centaur-tabs-style "slant")
- '(doom-modeline-buffer-file-name-style 'file-name)
+ '(doom-modeline-buffer-file-name-style 'relative-from-project)
  '(doom-modeline-window-width-limit fill-column)
  '(doom-modeline-height 12)
  ;; '(lsp-lua-workspace-library (ht ("res/config" t)

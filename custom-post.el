@@ -132,6 +132,7 @@
   :config
   :hook ((org-mode dired-mode) . org-download-enable)
   )
+
 (use-package dap-mode
   :hook((c++-mode) . (lambda () (
                             require 'dap-cpptools
@@ -146,6 +147,12 @@
   :config
   (slime-setup '(slime-fancy slime-quicklisp slime-asdf))
   (setq inferior-lisp-program "sbcl")
+  )
+
+(use-package flucui-themes
+
+  )
+(use-package lab-themes
   )
 
 ;; (use-package eaf
