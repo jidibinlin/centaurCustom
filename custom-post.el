@@ -55,7 +55,7 @@
 (defun counsel-projectile-rg-ignore-log ()
   "for company x4 project ignore the log directory when use rg searching"
   (interactive)
-  (counsel-projectile-rg "-g !log/ -g !logic_log/ -g !res/proto/ -g !/res/mapData/ -g !/res/all_config/ -g !*.conf -g !.ccls-cache/")
+  (counsel-projectile-rg "-g !log/ -g !.ccls-cache/")
   )
 
 ;; (use-package evil-org
@@ -82,33 +82,63 @@
 ;;   )
 
 
-(setq org-preview-latex-default-process 'dvisvgm)
-
-(defun my-org-latex-yas()
-  (yas-minor-mode)
-  (yas-activate-extra-mode 'latex-mode)) (add-hook 'org-mode-hook #'my-org-latex-yas)
+;; (defun my-org-latex-yas()
+;;   (yas-minor-mode)
+;;   (yas-activate-extra-mode 'latex-mode)) (add-hook 'org-mode-hook #'my-org-latex-yas)
 
 (setq company-minimum-prefix-length 3)
 (setq company-idle-delay 0.5)
 
 
-(use-package org-latex-impatient
-  :defer t
-  :hook (org-mode . org-latex-impatient-mode)
-  :hook (org-mode . my-org-latex-yas)
-  :init
-  (setq org-latex-impatient-tex2svg-bin
-        ;; location of tex2svg executable
-        "/lib/node_modules/mathjax-node-cli/bin/tex2svg"))
+;; (use-package org-latex-impatient
+;;   :defer t
+;;   :hook (org-mode . org-latex-impatient-mode)
+;;   :hook (org-mode . my-org-latex-yas)
+;;   :init
+;;   (setq org-latex-impatient-tex2svg-bin
+;;         ;; location of tex2svg executable
+;;         "/lib/node_modules/mathjax-node-cli/bin/tex2svg"))
 
-;; centaur tabs
-;; (require 'centaur-tabs)
-;; (centaur-tabs-mode t)
-;; (global-set-key (kbd "C-<left>")  'centaur-tabs-backward)
-;; (global-set-key (kbd "C-<right>") 'centaur-tabs-forward)
+(use-package org
+  :ensure
+  :pretty-hydra
+  ((:title (pretty-hydra-title "Org Template" 'fileicon "org" :face 'all-the-icons-green :height 1.1 :v-adjust 0.0)
+    :color blue :quit-key "q")
+   ("Basic"
+    (("a" (hot-expand "<a") "ascii")
+     ("c" (hot-expand "<c") "center")
+     ("C" (hot-expand "<C") "comment")
+     ("e" (hot-expand "<e") "example")
+     ("E" (hot-expand "<E") "export")
+     ("h" (hot-expand "<h") "html")
+     ("l" (hot-expand "<l") "latex")
+     ("n" (hot-expand "<n") "note")
+     ("o" (hot-expand "<q") "quote")
+     ("v" (hot-expand "<v") "verse"))
+    "Head"
+    (("i" (hot-expand "<i") "index")
+     ("A" (hot-expand "<A") "ASCII")
+     ("I" (hot-expand "<I") "INCLUDE")
+     ("H" (hot-expand "<H") "HTML")
+     ("L" (hot-expand "<L") "LaTeX"))
+    "Source"
+    (("s" (hot-expand "<s") "src")
+     ("m" (hot-expand "<s" "emacs-lisp") "emacs-lisp")
+     ("y" (hot-expand "<s" "python :results output") "python")
+     ("p" (hot-expand "<s" "perl") "perl")
+     ("r" (hot-expand "<s" "ruby") "ruby")
+     ("S" (hot-expand "<s" "sh") "sh")
+     ("g" (hot-expand "<s" "go :imports '\(\"fmt\"\)") "golang"))
+    "Misc"
+    (("u" (hot-expand "<s" "plantuml :file CHANGE.png") "plantuml")
+     ("Y" (hot-expand "<s" "ipython :session :exports both :results raw drawer\n$0") "ipython")
+     ("T" (yas-expand-snippet (yas-lookup-snippet "hugo_admonition")) "hugo_admonition")
+     ("P" (progn
+            (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
+            (hot-expand "<s" "perl")) "Perl tangled")
+     ("<" self-insert-command "ins"))))
+  )
 
-;; C-x C-f disable posframe mode
-;;(ivy-posframe-mode 0)
 
 (use-package winum
   :demand t
@@ -149,44 +179,17 @@
   (setq inferior-lisp-program "sbcl")
   )
 
-(use-package flucui-themes
-
+(use-package doom-modeline
+  :config
+  (setq doom-modeline-icon nil)
   )
-(use-package lab-themes
-  )
 
-;; (use-package eaf
-;;   :demand
-;;   :load-path "~/.emacs.d/site-lisp/emacs-application-framework" ; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
-;;   :custom
-;;                                         ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
-;;   (eaf-browser-continue-where-left-off t)
-;;   (eaf-browser-enable-adblocker t)
-;;   (browse-url-browser-function 'eaf-open-browser)
-;;   :config
-;;   (defalias 'browse-web #'eaf-open-browser)
-;;   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
-
-;; (require 'eaf-browser)
 
 (use-package lispy
   ;;  :ensure t
   :hook((lisp-mode) . (lambda () (lispy-mode 1)))
   )
 
-;; (use-package cmake-mode
-;;   :ensure t
-;;   )
-;; (use-package cmake-font-lock
-;;   :ensure t
-;;   :after (cmake-mode)
-;;   )
-;; (use-package cmake-ide
-;;   :ensure t
-;;   :after (cmake-mode)
-;;   )
-
-;;(desktop-save-mode t)
 
 ;; evil-surround
 (use-package evil-surround
@@ -215,6 +218,26 @@
                     ;; add accent snippets
                     :cond #'laas-object-on-left-condition
                     "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
+(use-package ox-hugo
+  :ensure t
+  :pin melpa
+  :after ox
+  )
+
+(use-package blamer
+  :ensure t
+  :defer 20
+  :custom
+  (blamer-idle-time 0.3)
+  (blamer-min-offset 70)
+  :custom-face
+  (blamer-face ((t :foreground "#7a88cf"
+                   :background nil
+                   :height 140
+                   :italic t)))
+  :config
+  (global-blamer-mode 1)
+  )
 
 ;;(setq lsp-csharp-server-install "/usr/share/omnisharp-roslyn")
 (setq lsp-csharp-server-path "/usr/bin/omnisharp")
