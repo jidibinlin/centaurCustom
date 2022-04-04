@@ -11,10 +11,9 @@
   (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
   (evil-define-key 'normal 'global (kbd "<leader>pf") 'counsel-fzf)
   (evil-define-key 'normal 'global (kbd "<leader>s") 'counsel-rg)
-  (define-key c-mode-base-map (kbd "C-c C-c") 'comment-or-uncomment-region)
+  ;;(define-key c-mode-base-map (kbd "C-c C-c") 'comment-or-uncomment-region)
 
   (evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
-  ;;(evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg-ignore-log)
 
   (with-eval-after-load 'evil
     (with-eval-after-load 'company
@@ -25,21 +24,24 @@
       (evil-define-key nil company-active-map (kbd "C-j") #'company-select-next)
       (evil-define-key nil company-active-map (kbd "C-k") #'company-select-previous)
       ))
+  (use-package evil-collection
+    ;;  :ensure t
+    :demand t
+    :after evil
+    :config
+    (evil-collection-init)
+    )
+  )
 
-
-  :hook ((go-mode) . (lambda ()
+(use-package go-mode
+  :hook (
+         (go-mode) . (lambda ()
                        (evil-define-key 'normal 'go-mode-map (kbd "gd") #'lsp-find-definition)
+                       (evil-define-key 'normal 'go-mode-map (kbd "gr") #'lsp-find-references)
                        )
          )
   )
 
-(use-package evil-collection
-  ;;  :ensure t
-  :demand t
-  :after evil
-  :config
-  (evil-collection-init)
-  )
 
 (use-package olivetti
   :diminish
@@ -47,57 +49,14 @@
   :bind ("<f7>" . olivetti-mode)
   :init (setq olivetti-body-width 0.85))
 
-(use-package org-superstar
-  :hook (org-mode . org-superstar-mode)
-  :init (setq org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
+
+
+(use-package company
+  :config
+  (setq company-minimum-prefix-length 3)
+  (setq company-idle-delay 0.5)
   )
 
-(defun counsel-projectile-rg-ignore-log ()
-  "for company x4 project ignore the log directory when use rg searching"
-  (interactive)
-  (counsel-projectile-rg "-g !log/ -g !.ccls-cache/")
-  )
-
-;; (use-package evil-org
-;;   :demand t
-;;   :ensure t
-;;   :config
-;;   (add-hook 'org-mode-hook 'evil-org-mode)
-;;   (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-;;   )
-;; (require 'evil-org-agenda)
-;; (evil-org-agenda-set-keys)
-
-;; (use-package evil-org
-;;   :ensure t
-;;   :after (:any org org-agenda)
-;;   :init
-;;   (require 'evil-org-agenda)
-;;   (evil-org-agenda-set-keys)
-;;   :hook (
-;;          ;;(org-mode . 'evil-org-mode)
-;;          (org-mode . 'org-superstar-mode)
-;;          (org-mode . (lambda () evil-org-mode))
-;;          )
-;;   )
-
-
-;; (defun my-org-latex-yas()
-;;   (yas-minor-mode)
-;;   (yas-activate-extra-mode 'latex-mode)) (add-hook 'org-mode-hook #'my-org-latex-yas)
-
-(setq company-minimum-prefix-length 3)
-(setq company-idle-delay 0.5)
-
-
-;; (use-package org-latex-impatient
-;;   :defer t
-;;   :hook (org-mode . org-latex-impatient-mode)
-;;   :hook (org-mode . my-org-latex-yas)
-;;   :init
-;;   (setq org-latex-impatient-tex2svg-bin
-;;         ;; location of tex2svg executable
-;;         "/lib/node_modules/mathjax-node-cli/bin/tex2svg"))
 
 (use-package org
   :ensure
@@ -137,6 +96,37 @@
             (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
             (hot-expand "<s" "perl")) "Perl tangled")
      ("<" self-insert-command "ins"))))
+  :hook (org-mode . my-org-latex-yas)
+  :config
+  (setq org-preview-latex-default-process 'dvipng)
+  (setq org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
+  (setq org-format-latex-options
+        '(:foreground default
+          :background default
+          :scale 1.5
+          :html-foreground "Black"
+          :html-background "Transparent"
+          :html-scale 1.0
+          :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
+  (use-package evil-org
+    :ensure t
+    :after (:any org org-agenda)
+    :init
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys)
+    :hook (
+           (org-mode . org-superstar-mode)
+           (org-mode . evil-org-mode)
+           )
+    )
+  (use-package valign
+    :after (org)
+    :hook (org-mode . valign-mode)
+    )
+  ;; make yasnippet for latex
+  (defun my-org-latex-yas()
+    (yas-minor-mode)
+    (yas-activate-extra-mode 'latex-mode))
   )
 
 
@@ -168,6 +158,8 @@
                             require 'dap-cpptools
                             require 'dap-go
                             )))
+  :config
+  (setq dap-auto-configure-features '(sessions locals controls tooltip))
   )
 
 (use-package slime
@@ -176,12 +168,26 @@
   ;; :init
   :config
   (slime-setup '(slime-fancy slime-quicklisp slime-asdf))
-  (setq inferior-lisp-program "sbcl")
+  )
+
+(use-package lsp-mode
+  :config
+  (setq lsp-ui-sideline-show-code-actions nil)
+  (setq lsp-ui-doc-show-with-cursor t)
+  (setq lsp-ui-doc-position 'at-point)
+  (setq lsp-eldoc-enable-hover nil)
+  (setq warning-suppress-log-types '((lsp-mode)))
+  (setq warning-suppress-types '((comp)))
+  (setq lsp-csharp-server-path "/usr/bin/omnisharp")
   )
 
 (use-package doom-modeline
   :config
   (setq doom-modeline-icon nil)
+  (setq inferior-lisp-program "sbcl")
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+  (setq doom-modeline-window-width-limit fill-column)
+  (setq doom-modeline-height 12)
   )
 
 
@@ -239,29 +245,30 @@
   (global-blamer-mode 1)
   )
 
-;;(setq lsp-csharp-server-install "/usr/share/omnisharp-roslyn")
-(setq lsp-csharp-server-path "/usr/bin/omnisharp")
+(use-package ivy-posframe
+  :config
+  ;; set the posframe position to the screen center
+  (defun ivy-posframe-display-at-frame-center(str)
+    (ivy-posframe--display str #'posframe-poshandler-frame-center)
+    )
+  (defun ivy-posframe-display-at-frame-top-center(str)
+    (ivy-posframe--display str #'posframe-poshandler-frame-top-center)
+    )
 
-;; set the posframe position to the screen center
-(defun ivy-posframe-display-at-frame-center(str)
-  (ivy-posframe--display str #'posframe-poshandler-frame-center)
+  (setf (alist-get t ivy-posframe-display-functions-alist)
+        #'ivy-posframe-display-at-frame-top-center)
   )
-(defun ivy-posframe-display-at-frame-top-center(str)
-  (ivy-posframe--display str #'posframe-poshandler-frame-top-center)
+
+(use-package rime
+  :custom
+  (default-input-method "rime")
+  :config
+  (setq rime-show-candidate 'posframe)
+  (define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
+  (setq rime-disable-predicates
+        '(rime-predicate-evil-mode-p
+          rime-predicate-after-alphabet-char-p
+          rime-predicate-prog-in-code-p
+          rime-predicate-current-input-punctuation-p)
+        )
   )
-
-(setf (alist-get t ivy-posframe-display-functions-alist)
-      #'ivy-posframe-display-at-frame-top-center)
-
-
-;;rime only for windows
-(if
-    (string-match "Microsoft"
-                  (with-temp-buffer (shell-command "uname -r" t)
-                                    (goto-char (point-max))
-                                    (delete-char -1)
-                                    (buffer-string)))
-    (load "~/.centaurCustom/rime.el")
-  (message "Not running under Linux subsystem for Windows"))
-
-;;(load "~/.centaurCustom/rime.el")

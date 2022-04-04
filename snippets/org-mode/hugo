@@ -2,6 +2,7 @@
 # name: hugo_des
 # key: hugo
 # --
+#+startup: latexpreview
 #+OPTIONS: author:nil ^:{}
 #+HUGO_BASE_DIR: ~/Documents/myblog
 #+HUGO_SECTION: /posts/`(format-time-string "%Y/%m")`
@@ -13,5 +14,9 @@
 #+TITLE: $1
 #+HUGO_TAGS: $2
 #+HUGO_CATEGORIES: $3
+#+DESCRIPTION: $4
+#+begin_export html
+<!--more-->
+#+end_export
 
 $0

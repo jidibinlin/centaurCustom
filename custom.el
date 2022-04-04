@@ -13,7 +13,7 @@
 (setq centaur-server nil)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'doom-nord-light)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-theme 'auto)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 (setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
@@ -42,19 +42,6 @@
                                            ("#+end_quote" . ?«)
                                            ("#+headers" . ?☰)
                                            ("#+results:" . ?💻)))  ; Alist of symbol prettifications for `org-mode'
-(setq org-structure-template-alist '(("a" . "export ascii")
-                                     ("c" . "center")
-                                     ("C" . "comment")
-                                     ("e" . "example")
-                                     ("E" . "export")
-                                     ("h" . "export html")
-                                     ("l" . "export latex")
-                                     ("q" . "quote")
-                                     ("s" . "src")
-                                     ("v" . "verse")
-                                     ("T" . "admonition")
-                                     ))
-
 ;; For Emacs devel
 ;; (setq package-user-dir (locate-user-emacs-file (format "elpa-%s" emacs-major-version)))
 ;; (setq desktop-base-file-name (format ".emacs-%s.desktop" emacs-major-version))
@@ -114,26 +101,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
- '(centaur-tabs-style "slant")
- '(doom-modeline-buffer-file-name-style 'relative-from-project)
- '(doom-modeline-window-width-limit fill-column)
- '(doom-modeline-height 12)
  ;; '(lsp-lua-workspace-library (ht ("res/config" t)
  ;;                                 ("src/global/util" t)))
  ;;'(lsp-lua-completion-call-snippet "Replace")
  ;;'(lsp-lua-completion-call-snippet "Disable")
- ;;'(lsp-lua-workspace-ignore-dir
- ;; ["res/all_config/" ".vscode" "res/proto" "log/" "mapData/" "*.xml" "*.dat" "sql"])
- '(lsp-ui-sideline-show-code-actions nil)
- '(lsp-ui-doc-show-with-cursor t)
- '(lsp-ui-doc-position 'at-point)
- '(lsp-eldoc-enable-hover nil)
- ;;'(lsp-lua-diagnostics-disable [ "lowercase-global" ])
- ;;'(lsp-lua-workspace-max-preload 2000)
- '(warning-suppress-log-types '((lsp-mode)))
- '(warning-suppress-types '((comp)))
- '(dap-auto-configure-features '(sessions locals controls tooltip))
- ;; '(inferior-lisp-program "sbcl")
+ '(inferior-lisp-program "sbcl")
  '(pixel-scroll-mode t)
  '(vc-follow-symlinks t)
  )
@@ -152,7 +124,7 @@
  '(org-level-6 ((t (:inherit outline-6 :height 1.2 :foreground "#A6E22E"))))
  '(org-level-7 ((t (:inherit outline-7 :height 1.2 :foreground "#F92672"))))
  '(org-level-8 ((t (:inherit outline-8 :height 1.2 :foreground "#66D9EF"))))
- '(org-table ((t (:foreground "#6c71c4" :family "Sarasa Mono SC"))))
+ ;;'(org-table ((t (:foreground "#6c71c4" :family "Sarasa Mono SC"))))
  )
 
 ;;; custom.el ends here
