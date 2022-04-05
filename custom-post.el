@@ -1,5 +1,4 @@
 (use-package evil
-  ;;:ensure t
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
@@ -7,59 +6,80 @@
   :config
   (evil-mode 1)
   (evil-set-leader 'normal (kbd "SPC"))
-  (evil-define-key 'normal 'global (kbd "<leader>bb") 'ivy-switch-buffer)
-  (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
-  (evil-define-key 'normal 'global (kbd "<leader>pf") 'counsel-fzf)
-  (evil-define-key 'normal 'global (kbd "<leader>s") 'counsel-rg)
-  ;;(define-key c-mode-base-map (kbd "C-c C-c") 'comment-or-uncomment-region)
-
   (evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
 
-  (with-eval-after-load 'evil
-    (with-eval-after-load 'company
-      (define-key evil-insert-state-map (kbd "C-n") nil)
-      (define-key evil-insert-state-map (kbd "C-p") nil)
-      (evil-define-key nil company-active-map (kbd "C-n") #'company-select-next)
-      (evil-define-key nil company-active-map (kbd "C-p") #'company-select-previous)
-      (evil-define-key nil company-active-map (kbd "C-j") #'company-select-next)
-      (evil-define-key nil company-active-map (kbd "C-k") #'company-select-previous)
-      ))
   (use-package evil-collection
-    ;;  :ensure t
     :demand t
     :after evil
     :config
     (evil-collection-init)
     )
+
+  (use-package evil-surround
+    :demand t
+    :config
+    (global-evil-surround-mode 1))
   )
 
-(use-package go-mode
-  :hook (
-         (go-mode) . (lambda ()
-                       (evil-define-key 'normal 'go-mode-map (kbd "gd") #'lsp-find-definition)
-                       (evil-define-key 'normal 'go-mode-map (kbd "gr") #'lsp-find-references)
-                       )
-         )
+(use-package counsel
+  :after evil
+  :config
+  (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
+  (evil-define-key 'normal 'global (kbd "<leader>pf") 'counsel-fzf)
+  (evil-define-key 'normal 'global (kbd "<leader>s") 'counsel-rg)
+  (evil-define-key 'normal 'global (kbd "<leader>im") 'counsel-imenu)
   )
 
+(use-package ivy
+  :config
+  (evil-define-key 'normal 'global (kbd "<leader>bb") 'ivy-switch-buffer)
+  )
 
 (use-package olivetti
   :diminish
   :hook (org-mode . olivetti-mode)
   :bind ("<f7>" . olivetti-mode)
-  :init (setq olivetti-body-width 0.85))
-
-
-
-(use-package company
-  :config
-  (setq company-minimum-prefix-length 3)
-  (setq company-idle-delay 0.5)
+  :init (setq olivetti-body-width 0.65)
   )
 
+(use-package go-mode
+  :hook ((go-mode) . (lambda ()(evil-define-key 'normal 'go-mode-map (kbd "gd") #'lsp-find-definition)
+                       (evil-define-key 'normal 'go-mode-map (kbd "gr") #'lsp-find-references)))
+  )
+
+(use-package company
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.5)
+
+  :config
+  (with-eval-after-load 'evil
+    (with-eval-after-load 'company
+      (define-key evil-insert-state-map (kbd "C-n") nil)
+      (define-key evil-insert-state-map (kbd "C-p") nil)
+      (define-key company-active-map (kbd "<tab>") nil)
+      (evil-define-key nil company-active-map (kbd "C-n") #'company-select-next)
+      (evil-define-key nil company-active-map (kbd "C-p") #'company-select-previous)
+      (evil-define-key nil company-active-map (kbd "C-j") #'company-select-next)
+      (evil-define-key nil company-active-map (kbd "C-k") #'company-select-previous)
+      (evil-define-key nil company-active-map (kbd "<tab>") #'company-complete-selection)
+      ))
+  )
 
 (use-package org
   :ensure
+  :custom
+  (org-preview-latex-default-process 'dvipng)
+  (org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
+  (org-format-latex-options
+   '(:foreground default
+     :background default
+     :scale 1.5
+     :html-foreground "Black"
+     :html-background "Transparent"
+     :html-scale 1.0
+     :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
+
   :pretty-hydra
   ((:title (pretty-hydra-title "Org Template" 'fileicon "org" :face 'all-the-icons-green :height 1.1 :v-adjust 0.0)
     :color blue :quit-key "q")
@@ -97,17 +117,8 @@
             (hot-expand "<s" "perl")) "Perl tangled")
      ("<" self-insert-command "ins"))))
   :hook (org-mode . my-org-latex-yas)
+
   :config
-  (setq org-preview-latex-default-process 'dvipng)
-  (setq org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
-  (setq org-format-latex-options
-        '(:foreground default
-          :background default
-          :scale 1.5
-          :html-foreground "Black"
-          :html-background "Transparent"
-          :html-scale 1.0
-          :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
   (use-package evil-org
     :ensure t
     :after (:any org org-agenda)
@@ -129,10 +140,8 @@
     (yas-activate-extra-mode 'latex-mode))
   )
 
-
 (use-package winum
   :demand t
-  ;;  :ensure t
   :config
   (winum-mode t)
   (evil-define-key 'normal 'global (kbd "<leader>1") 'winum-select-window-1)
@@ -154,77 +163,52 @@
   )
 
 (use-package dap-mode
-  :hook((c++-mode) . (lambda () (
-                            require 'dap-cpptools
-                            require 'dap-go
-                            )))
+  :hook((c++-mode . (lambda () (require 'dap-cpptools)))
+        (go-mode . (lambda () (require 'dap-go))))
+
   :config
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
   )
 
 (use-package slime
-  ;;  :ensure t
   :after (lisp-mode)
-  ;; :init
   :config
   (slime-setup '(slime-fancy slime-quicklisp slime-asdf))
   )
 
 (use-package lsp-mode
+  :custom
+  (lsp-ui-sideline-show-code-actions nil)
+  (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-position 'at-point)
+  (lsp-eldoc-enable-hover nil)
+  (warning-suppress-log-types '((lsp-mode)))
+  (warning-suppress-types '((comp)))
+  (lsp-csharp-server-path "/usr/bin/omnisharp")
+
   :config
-  (setq lsp-ui-sideline-show-code-actions nil)
-  (setq lsp-ui-doc-show-with-cursor t)
-  (setq lsp-ui-doc-position 'at-point)
-  (setq lsp-eldoc-enable-hover nil)
-  (setq warning-suppress-log-types '((lsp-mode)))
-  (setq warning-suppress-types '((comp)))
-  (setq lsp-csharp-server-path "/usr/bin/omnisharp")
   (add-to-list 'lsp-file-watch-ignored "[/\\\\]cfg\\'")
+
   :hook(lsp-mode . lsp-headerline-breadcrumb-mode)
   )
 
 (use-package doom-modeline
-  :config
-  (setq doom-modeline-icon nil)
-  (setq inferior-lisp-program "sbcl")
-  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-  (setq doom-modeline-window-width-limit fill-column)
-  (setq doom-modeline-height 12)
-  (setq doom-modeline-unicode-fallback t)
+  :custom
+  (doom-modeline-icon nil)
+  (inferior-lisp-program "sbcl")
+  (doom-modeline-buffer-file-name-style 'relative-from-project)
+  (doom-modeline-window-width-limit fill-column)
+  (doom-modeline-height 12)
+  (doom-modeline-unicode-fallback t)
+  (doom-modeline-hud t)
   )
 
 (use-package lispy
-  ;;  :ensure t
-  :hook((lisp-mode) . (lambda () (lispy-mode 1)))
-  )
+  :after (:any lisp-mode emacs-lisp-mode lisp-interaction-mode)
+  :hook(
+        (lisp-mode emacs-lisp-mode lisp-interaction-mode) . lispy-mode))
 
-;; evil-surround
-(use-package evil-surround
-  ;; :ensure t
-  :demand t
-  :config
-  (global-evil-surround-mode 1))
 
-(use-package laas
-  ;;  :ensure t
-  :hook (LaTeX-mode . laas-mode)
-  :config ; do whatever here
-  (aas-set-snippets 'laas-mode
-                    ;; set condition!
-                    :cond #'texmathp ; expand only while in math
-                    "supp" "\\supp"
-                    "On" "O(n)"
-                    "O1" "O(1)"
-                    "Olog" "O(\\log n)"
-                    "Olon" "O(n \\log n)"
-                    ;; bind to functions!
-                    "Sum" (lambda () (interactive)
-                            (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
-                    "Span" (lambda () (interactive)
-                             (yas-expand-snippet "\\Span($1)$0"))
-                    ;; add accent snippets
-                    :cond #'laas-object-on-left-condition
-                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
 (use-package ox-hugo
   :ensure t
   :pin melpa
@@ -235,13 +219,15 @@
   :ensure t
   :defer 20
   :custom
-  (blamer-idle-time 0.3)
+  (blamer-idle-time 1)
   (blamer-min-offset 70)
+
   :custom-face
   (blamer-face ((t :foreground "#7a88cf"
                    :background nil
                    :height 140
                    :italic t)))
+
   :config
   (global-blamer-mode 1)
   )
@@ -260,13 +246,14 @@
 (use-package rime
   :custom
   (default-input-method "rime")
+  (rime-show-candidate 'posframe)
+  (rime-disable-predicates
+   '(rime-predicate-evil-mode-p
+     rime-predicate-after-alphabet-char-p
+     rime-predicate-prog-in-code-p
+     rime-predicate-current-input-punctuation-p)
+   )
+
   :config
-  (setq rime-show-candidate 'posframe)
   (define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
-  (setq rime-disable-predicates
-        '(rime-predicate-evil-mode-p
-          rime-predicate-after-alphabet-char-p
-          rime-predicate-prog-in-code-p
-          rime-predicate-current-input-punctuation-p)
-        )
   )

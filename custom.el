@@ -10,7 +10,7 @@
 (setq centaur-mail-address "2694273649@qq.com")   ; Email address
 ;;(setq centaur-proxy "127.0.0.1:1087")          ; HTTP/HTTPS proxy
 ;;(setq centaur-socks-proxy "127.0.0.1:7890")    ; SOCKS proxy
-(setq centaur-server nil)                      ; Enable `server-mode' or not: t or nil
+(setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
 (setq centaur-theme 'warm)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
@@ -42,6 +42,9 @@
                                            ("#+end_quote" . ?«)
                                            ("#+headers" . ?☰)
                                            ("#+results:" . ?💻)))  ; Alist of symbol prettifications for `org-mode'
+(setenv "INFOPATH" "/opt/homebrew/share/info")
+(setenv "LSP_USE_PLISTS" "true")
+
 ;; For Emacs devel
 ;; (setq package-user-dir (locate-user-emacs-file (format "elpa-%s" emacs-major-version)))
 ;; (setq desktop-base-file-name (format ".emacs-%s.desktop" emacs-major-version))
