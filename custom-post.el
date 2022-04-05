@@ -179,6 +179,8 @@
   (setq warning-suppress-log-types '((lsp-mode)))
   (setq warning-suppress-types '((comp)))
   (setq lsp-csharp-server-path "/usr/bin/omnisharp")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]cfg\\'")
+  :hook(lsp-mode . lsp-headerline-breadcrumb-mode)
   )
 
 (use-package doom-modeline
@@ -188,14 +190,13 @@
   (setq doom-modeline-buffer-file-name-style 'relative-from-project)
   (setq doom-modeline-window-width-limit fill-column)
   (setq doom-modeline-height 12)
+  (setq doom-modeline-unicode-fallback t)
   )
-
 
 (use-package lispy
   ;;  :ensure t
   :hook((lisp-mode) . (lambda () (lispy-mode 1)))
   )
-
 
 ;; evil-surround
 (use-package evil-surround
@@ -248,9 +249,6 @@
 (use-package ivy-posframe
   :config
   ;; set the posframe position to the screen center
-  (defun ivy-posframe-display-at-frame-center(str)
-    (ivy-posframe--display str #'posframe-poshandler-frame-center)
-    )
   (defun ivy-posframe-display-at-frame-top-center(str)
     (ivy-posframe--display str #'posframe-poshandler-frame-top-center)
     )
