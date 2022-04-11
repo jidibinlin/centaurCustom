@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: lunadb
+# key: getdb
+# --
+db, check := dbs.GetDBsIns().GetServerDb($1)
+
+if !check {
+   return false, errors.New("get serverdb failed")
+}
+$0

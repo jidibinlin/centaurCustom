@@ -9,9 +9,9 @@
 (setq centaur-full-name "jidibinlin")           ; User full name
 (setq centaur-mail-address "2694273649@qq.com")   ; Email address
 ;;(setq centaur-proxy "127.0.0.1:1087")          ; HTTP/HTTPS proxy
-;;(setq centaur-socks-proxy "127.0.0.1:7890")    ; SOCKS proxy
+(setq centaur-socks-proxy "127.0.0.1:7890")    ; SOCKS proxy
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
-;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
+;;(setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
 (setq centaur-theme 'warm)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
@@ -104,13 +104,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
- ;; '(lsp-lua-workspace-library (ht ("res/config" t)
- ;;                                 ("src/global/util" t)))
- ;;'(lsp-lua-completion-call-snippet "Replace")
- ;;'(lsp-lua-completion-call-snippet "Disable")
- '(inferior-lisp-program "sbcl")
  '(pixel-scroll-mode t)
  '(vc-follow-symlinks t)
+ '(custom-theme-directory "~/.emacs.d/themes")
  )
 
 
@@ -119,6 +115,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
+ ;; '(hl-line                        ((((type graphic))
+ ;;                                    :box (:line-width (-1 . -2) :color "#edccb7" :style nil))
+ ;;                                   (((type tty))
+ ;;                                    :background "#ffffff")))
+
  '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#FD971F"))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.2 :foreground "#A6E22E"))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.2 :foreground "#66D9EF"))))
@@ -127,7 +129,6 @@
  '(org-level-6 ((t (:inherit outline-6 :height 1.2 :foreground "#A6E22E"))))
  '(org-level-7 ((t (:inherit outline-7 :height 1.2 :foreground "#F92672"))))
  '(org-level-8 ((t (:inherit outline-8 :height 1.2 :foreground "#66D9EF"))))
- ;;'(org-table ((t (:foreground "#6c71c4" :family "Sarasa Mono SC"))))
  )
 
 ;;; custom.el ends here

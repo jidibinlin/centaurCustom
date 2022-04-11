@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: mkidx
+# key: mkidx
+# --
+-- 建立索引 $1
+ALTER TABLE \`$1\` ADD INDEX $2 (\`$2\`);

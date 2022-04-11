@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: mksigidx
+# key: mksigidx
+# --
+ALTER TABLE \`$1\` ADD INDEX $2 (\`$2\`);

@@ -1,3 +1,21 @@
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(use-package storybook-theme
+  :demand
+  :straight (storybook-theme :type git :host github :repo "DogLooksGood/storybook-theme")
+  )
+
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -35,12 +53,12 @@
   (evil-define-key 'normal 'global (kbd "<leader>bb") 'ivy-switch-buffer)
   )
 
-(use-package olivetti
-  :diminish
-  :hook (org-mode . olivetti-mode)
-  :bind ("<f7>" . olivetti-mode)
-  :init (setq olivetti-body-width 0.65)
-  )
+;; (use-package olivetti
+;;   :diminish
+;;   :hook (org-mode . olivetti-mode)
+;;   :bind ("<f7>" . olivetti-mode)
+;;   :init (setq olivetti-body-width 0.65)
+;;   )
 
 (use-package go-mode
   :hook ((go-mode) . (lambda ()(evil-define-key 'normal 'go-mode-map (kbd "gd") #'lsp-find-definition)
@@ -62,7 +80,7 @@
       (evil-define-key nil company-active-map (kbd "C-p") #'company-select-previous)
       (evil-define-key nil company-active-map (kbd "C-j") #'company-select-next)
       (evil-define-key nil company-active-map (kbd "C-k") #'company-select-previous)
-      (evil-define-key nil company-active-map (kbd "<tab>") #'company-complete-selection)
+      (evil-define-key nil company-active-map (kbd "<return>") #'company-complete-selection)
       ))
   )
 
@@ -79,6 +97,7 @@
      :html-background "Transparent"
      :html-scale 1.0
      :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
+  (org-num-skip-footnotes t)
 
   :pretty-hydra
   ((:title (pretty-hydra-title "Org Template" 'fileicon "org" :face 'all-the-icons-green :height 1.1 :v-adjust 0.0)
@@ -116,7 +135,10 @@
             (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
             (hot-expand "<s" "perl")) "Perl tangled")
      ("<" self-insert-command "ins"))))
-  :hook (org-mode . my-org-latex-yas)
+  :hook (
+         (org-mode . my-org-latex-yas)
+         (org-mode . org-num-mode)
+         )
 
   :config
   (use-package evil-org
@@ -132,6 +154,8 @@
     )
   (use-package valign
     :after (org)
+    :custom
+    (valign-fancy-bar t)
     :hook (org-mode . valign-mode)
     )
   ;; make yasnippet for latex
@@ -243,7 +267,6 @@
         #'ivy-posframe-display-at-frame-top-center)
   )
 
-
 (use-package rime
   :custom
   (default-input-method "rime")
@@ -258,3 +281,6 @@
   :config
   (define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
   )
+
+
+(load-file "~/.centaurCustom/luna.el")

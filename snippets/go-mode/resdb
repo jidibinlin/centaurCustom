@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: resdb
+# key: resdb
+# --
+resource.DB = db
