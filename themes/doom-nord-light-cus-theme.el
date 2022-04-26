@@ -118,10 +118,19 @@ determine the exact padding."
   ;;;; Base theme face overrides
   (((font-lock-comment-face &override)
     :background (if doom-nord-light-cus-comment-bg (doom-lighten bg 0.05)))
-   ((hl-line &override)
-	:box `(:line-width,`(1,1,1,1) :color ,`("#edccb7","#edccb7","#edccb7","#edccb7")) )
+   (hl-line
+    :box `(:line-width (-1 . -2)
+           :color "#edccb7"
+           :style nil)
+    :foreground "#404040"
+
+    :inherit t
+    )
    ((line-number &override) :foreground (doom-lighten 'base5 0.2))
-   ((line-number-current-line &override) :foreground base7)
+   ((line-number-current-line &override)
+    :Foreground "F2E6CE"
+    :Weight bold
+    )
    (internal-border :foreground (doom-blend blue bg 0.2) :background (doom-blend blue bg 0.2))
    (mode-line
     :background modeline-bg :foreground modeline-fg
@@ -174,7 +183,8 @@ determine the exact padding."
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive-l)))
    ;;;; vimish-fold
    ((vimish-fold-fringe &override) :foreground teal)
-   ((vimish-fold-overlay &override) :inherit 'font-lock-comment-face :background base3 :weight 'light))
+   ((vimish-fold-overlay &override) :inherit 'font-lock-comment-face :background base3 :weight 'light)
+   )
 
   ;;;; Base theme variable overrides-
   ()

@@ -16,6 +16,11 @@
   :straight (storybook-theme :type git :host github :repo "DogLooksGood/storybook-theme")
   )
 
+(use-package printed-theme
+  :demand
+  :straight (printed-theme :type git :host github :repo "jidibinlin/printed-theme")
+  )
+
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -25,6 +30,10 @@
   (evil-mode 1)
   (evil-set-leader 'normal (kbd "SPC"))
   (evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
+  (evil-define-key 'normal 'lisp-mode-map (kbd "gd") 'xref-find-definitions)
+  (evil-define-key 'normal 'lisp-mode-map (kbd "gr") 'xref-find-references)
+  (evil-define-key 'normal 'emacs-lisp-mode-map (kbd "gd") 'xref-find-definitions)
+  (evil-define-key 'normal 'emacs-lisp-mode-map (kbd "gr") 'xref-find-references)
 
   (use-package evil-collection
     :demand t
@@ -88,7 +97,7 @@
   :ensure
   :custom
   (org-preview-latex-default-process 'dvipng)
-  (org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
+  ;;(org-superstar-headline-bullets-list '( "◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
   (org-format-latex-options
    '(:foreground default
      :background default
@@ -148,7 +157,7 @@
     (require 'evil-org-agenda)
     (evil-org-agenda-set-keys)
     :hook (
-           (org-mode . org-superstar-mode)
+           ;;(org-mode . org-superstar-mode)
            (org-mode . evil-org-mode)
            )
     )
@@ -162,6 +171,12 @@
   (defun my-org-latex-yas()
     (yas-minor-mode)
     (yas-activate-extra-mode 'latex-mode))
+  (push	'(lisp . t) load-language-list)
+  (org-babel-do-load-languages 'org-babel-load-languages load-language-list)
+  (setq org-babel-lisp-eval-fn #'sly-eval)
+  )
+
+(use-package common-lisp-snippets
   )
 
 (use-package winum
@@ -180,6 +195,10 @@
   (evil-define-key 'normal 'global (kbd "<leader>0") 'winum-select-window-0-or-10)
   )
 
+(use-package ace-window
+  :config
+  (evil-define-key 'normal 'global (kbd "<leader>w") 'ace-window))
+
 (use-package org-download
   ;;:ensure t
   :config
@@ -194,10 +213,10 @@
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
   )
 
-(use-package slime
-  :after (lisp-mode)
+(use-package sly
   :config
-  (slime-setup '(slime-fancy slime-quicklisp slime-asdf))
+  (setq inferior-lisp-program "/opt/homebrew/bin/sbcl")
+  (setq sly-contribs '(sly-fancy))
   )
 
 (use-package lsp-mode
@@ -219,7 +238,6 @@
 (use-package doom-modeline
   :custom
   (doom-modeline-icon nil)
-  (inferior-lisp-program "sbcl")
   (doom-modeline-buffer-file-name-style 'relative-from-project)
   (doom-modeline-window-width-limit fill-column)
   (doom-modeline-height 12)
@@ -229,8 +247,8 @@
 
 (use-package lispy
   :after (:any lisp-mode emacs-lisp-mode lisp-interaction-mode)
-  :hook(
-        (lisp-mode emacs-lisp-mode lisp-interaction-mode) . lispy-mode))
+  :hook((lisp-mode emacs-lisp-mode lisp-interaction-mode) . lispy-mode)
+  )
 
 
 (use-package ox-hugo
@@ -238,6 +256,7 @@
   :pin melpa
   :after ox
   )
+
 
 (use-package blamer
   :ensure t
