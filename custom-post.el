@@ -14,7 +14,7 @@
 (use-package storybook-theme
   :demand
   :straight (storybook-theme :type git :host github :repo "DogLooksGood/storybook-theme")
-  )
+  )
 
 (use-package printed-theme
   :demand
@@ -28,16 +28,11 @@
   :demand t
   :config
   (evil-mode 1)
-  (evil-set-leader 'normal (kbd "SPC"))
-  (evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
-  (evil-define-key 'normal 'lisp-mode-map (kbd "gd") 'xref-find-definitions)
-  (evil-define-key 'normal 'lisp-mode-map (kbd "gr") 'xref-find-references)
-  (evil-define-key 'normal 'emacs-lisp-mode-map (kbd "gd") 'xref-find-definitions)
-  (evil-define-key 'normal 'emacs-lisp-mode-map (kbd "gr") 'xref-find-references)
 
   (use-package evil-collection
-    :demand t
     :after evil
+    :demand t
+    :ensure t
     :config
     (evil-collection-init)
     )
@@ -46,7 +41,13 @@
     :demand t
     :config
     (global-evil-surround-mode 1))
+
+  (evil-set-leader 'normal (kbd "SPC"))
+  (evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
+  ;;(evil-collection-define-key 'normal 'emacs-lisp-mode-map (kbd "gd") #'xref-find-definitions)
+  ;;(evil-collection-define-key 'normal 'emacs-lisp-mode-map (kbd "gr") #'xref-find-references)
   )
+
 
 (use-package counsel
   :after evil
@@ -62,16 +63,11 @@
   (evil-define-key 'normal 'global (kbd "<leader>bb") 'ivy-switch-buffer)
   )
 
-;; (use-package olivetti
-;;   :diminish
-;;   :hook (org-mode . olivetti-mode)
-;;   :bind ("<f7>" . olivetti-mode)
-;;   :init (setq olivetti-body-width 0.65)
-;;   )
 
 (use-package go-mode
-  :hook ((go-mode) . (lambda ()(evil-define-key 'normal 'go-mode-map (kbd "gd") #'lsp-find-definition)
-                       (evil-define-key 'normal 'go-mode-map (kbd "gr") #'lsp-find-references)))
+  :config
+  (evil-collection-define-key 'normal 'go-mode-map (kbd "gd") #'lsp-find-definition)
+  (evil-collection-define-key 'normal 'go-mode-map (kbd "gr") #'lsp-find-references)
   )
 
 (use-package company
@@ -179,21 +175,6 @@
 (use-package common-lisp-snippets
   )
 
-(use-package winum
-  :demand t
-  :config
-  (winum-mode t)
-  (evil-define-key 'normal 'global (kbd "<leader>1") 'winum-select-window-1)
-  (evil-define-key 'normal 'global (kbd "<leader>2") 'winum-select-window-2)
-  (evil-define-key 'normal 'global (kbd "<leader>3") 'winum-select-window-3)
-  (evil-define-key 'normal 'global (kbd "<leader>4") 'winum-select-window-4)
-  (evil-define-key 'normal 'global (kbd "<leader>5") 'winum-select-window-5)
-  (evil-define-key 'normal 'global (kbd "<leader>6") 'winum-select-window-6)
-  (evil-define-key 'normal 'global (kbd "<leader>7") 'winum-select-window-7)
-  (evil-define-key 'normal 'global (kbd "<leader>8") 'winum-select-window-8)
-  (evil-define-key 'normal 'global (kbd "<leader>9") 'winum-select-window-9)
-  (evil-define-key 'normal 'global (kbd "<leader>0") 'winum-select-window-0-or-10)
-  )
 
 (use-package ace-window
   :config
@@ -217,6 +198,11 @@
   :config
   (setq inferior-lisp-program "/opt/homebrew/bin/sbcl")
   (setq sly-contribs '(sly-fancy))
+  (evil-collection-define-key 'normal 'sly-mode-map (kbd "gd") #'sly-edit-definition)
+  (evil-collection-define-key 'normal 'sly-mode-map (kbd "gr") #'sly-who-references)
+  (evil-collection-define-key 'normal 'sly-mode-map (kbd "K") #'sly-describe-symbol)
+  (evil-collection-define-key 'normal 'sly-mode-map (kbd "gz") #'sly-mrepl)
+  (evil-collection-define-key 'normal 'sly-mode-map (kbd "c-t") #'sly-pop-find-definition-stack)
   )
 
 (use-package lsp-mode
