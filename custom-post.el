@@ -14,7 +14,7 @@
 (use-package storybook-theme
   :demand
   :straight (storybook-theme :type git :host github :repo "DogLooksGood/storybook-theme")
-  )
+  )
 
 (use-package printed-theme
   :demand
@@ -44,8 +44,6 @@
 
   (evil-set-leader 'normal (kbd "SPC"))
   (evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
-  ;;(evil-collection-define-key 'normal 'emacs-lisp-mode-map (kbd "gd") #'xref-find-definitions)
-  ;;(evil-collection-define-key 'normal 'emacs-lisp-mode-map (kbd "gr") #'xref-find-references)
   )
 
 
@@ -73,8 +71,7 @@
 (use-package company
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.5)
-
+  (company-idle-delay 0)
   :config
   (with-eval-after-load 'evil
     (with-eval-after-load 'company
@@ -267,9 +264,20 @@
   (defun ivy-posframe-display-at-frame-top-center(str)
     (ivy-posframe--display str #'posframe-poshandler-frame-top-center)
     )
-
   (setf (alist-get t ivy-posframe-display-functions-alist)
         #'ivy-posframe-display-at-frame-top-center)
+  )
+
+(use-package magit
+  :config
+  (defun ediff-copy-both-to-C ()
+    (interactive)
+    (ediff-copy-diff ediff-current-difference nil 'C nil
+                     (concat
+                      (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
+                      (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
+  (defun add-upper-b-to-ediff-mode-map () (define-key ediff-mode-map "B" 'ediff-copy-both-to-C))
+  (add-hook 'ediff-keymap-setup-hook 'add-upper-b-to-ediff-mode-map)
   )
 
 (use-package rime
@@ -287,5 +295,15 @@
   (define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
   )
 
+(use-package copilot
+  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  :ensure t
+  :hook (prog-mode . copilot-mode)
+  :config
+  (define-key company-active-map (kbd "C-w") nil)
+  (evil-define-key 'insert 'company-active-map (kbd "C-w") 'copilot-accept-completion-by-word)
+  (evil-define-key 'insert 'company-active-map (kbd "C-c") 'copilot-accept-completion)
+  (evil-define-key 'insert 'company-active-map (kbd "C-l") 'copilot-accept-completion-by-line)
+  )
 
 (load-file "~/.centaurCustom/luna.el")

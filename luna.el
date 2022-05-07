@@ -3,6 +3,12 @@
   (interactive)
   (start-process-shell-command "luna_game" (get-buffer "*Messages*") "alacritty -e /opt/luna_server/game/makeGame.sh"))
 
+(defun run-luna()
+  "run luna without build"
+  (interactive)
+  (start-process-shell-command "luna_game" (get-buffer "*Messages*") "alacritty -e /opt/luna_server/game/runluna.sh")
+  )
+
 (defun release-luna (release-type needExportCfg)
   "release the luna game"
   (interactive
