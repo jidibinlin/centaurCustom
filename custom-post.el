@@ -23,8 +23,9 @@
 
 (use-package evil
   :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
+  :custom
+  (evil-want-integration t)
+  (evil-want-keybinding nil)
   :demand t
   :config
   (evil-mode 1)
@@ -64,8 +65,8 @@
 
 (use-package go-mode
   :config
-  (evil-collection-define-key 'normal 'go-mode-map (kbd "gd") #'lsp-find-definition)
-  (evil-collection-define-key 'normal 'go-mode-map (kbd "gr") #'lsp-find-references)
+  (evil-collection-define-key 'normal 'go-mode-map (kbd "gd") #'lsp-ui-peek-find-definitions)
+  (evil-collection-define-key 'normal 'go-mode-map (kbd "gr") #'lsp-ui-peek-find-references)
   )
 
 (use-package company
@@ -186,9 +187,10 @@
 (use-package dap-mode
   :hook((c++-mode . (lambda () (require 'dap-cpptools)))
         (go-mode . (lambda () (require 'dap-go))))
-
-  :config
-  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+  :custom
+  (dap-auto-configure-features '(sessions locals controls breakpoints))
+  ;; :config
+  ;; (setq dap-auto-configure-features '(sessions locals controls tooltip))
   )
 
 (use-package sly
@@ -264,8 +266,10 @@
   (defun ivy-posframe-display-at-frame-top-center(str)
     (ivy-posframe--display str #'posframe-poshandler-frame-top-center)
     )
+  ;; (setf (alist-get t ivy-posframe-display-functions-alist)
+  ;;       #'ivy-posframe-display-at-frame-top-center)
   (setf (alist-get t ivy-posframe-display-functions-alist)
-        #'ivy-posframe-display-at-frame-top-center)
+        #'ivy-posframe-display-at-frame-center)
   )
 
 (use-package magit
@@ -280,20 +284,21 @@
   (add-hook 'ediff-keymap-setup-hook 'add-upper-b-to-ediff-mode-map)
   )
 
-(use-package rime
-  :custom
-  (default-input-method "rime")
-  (rime-show-candidate 'posframe)
-  (rime-disable-predicates
-   '(rime-predicate-evil-mode-p
-     rime-predicate-after-alphabet-char-p
-     rime-predicate-prog-in-code-p
-     rime-predicate-current-input-punctuation-p)
-   )
+;; (use-package rime
+;;   :custom
+;;   (default-input-method "rime")
+;;   (rime-show-candidate 'posframe)
+;;   (rime-disable-predicates
+;;    '(rime-predicate-evil-mode-p
+;;      rime-predicate-after-alphabet-char-p
+;;      rime-predicate-prog-in-code-p
+;;      rime-predicate-current-input-punctuation-p)
+;;    )
 
-  :config
-  (define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
-  )
+;;   :config
+;;   (define-key rime-mode-map (kbd "M-j") 'rime-force-enable)
+;;   )
+
 
 (use-package copilot
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
