@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: NewLogicErr
+# key: NL
+# --
+
+return NewLogicErr("`(concat (car (split-string (which-function) "(")) " failed")`", "$1", ${2:err}, ${3:code.ErrInterval})

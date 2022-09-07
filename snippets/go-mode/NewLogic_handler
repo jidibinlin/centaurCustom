@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: NewLogic handler
+# key: funcl
+# --
+func $1(ctx *Context, msg proto.Message) error {
+     $0
+}

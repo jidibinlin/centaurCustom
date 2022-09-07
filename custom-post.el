@@ -45,17 +45,18 @@
 
   (evil-set-leader 'normal (kbd "SPC"))
   (evil-define-key 'normal 'global (kbd "<leader>ps") 'counsel-projectile-rg)
+  (evil-define-key 'normal 'global (kbd "<leader>RET") 'shell-pop-posframe-toggle)
   )
 
 
-(use-package counsel
-  :after evil
-  :config
-  (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
-  (evil-define-key 'normal 'global (kbd "<leader>pf") 'counsel-fzf)
-  (evil-define-key 'normal 'global (kbd "<leader>s") 'counsel-rg)
-  (evil-define-key 'normal 'global (kbd "<leader>im") 'counsel-imenu)
-  )
+;; (use-package counsel
+;;   :after evil
+;;   :config
+;;   (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
+;;   (evil-define-key 'normal 'global (kbd "<leader>pf") 'counsel-fzf)
+;;   (evil-define-key 'normal 'global (kbd "<leader>s") 'counsel-rg)
+;;   (evil-define-key 'normal 'global (kbd "<leader>im") 'counsel-imenu)
+;;   )
 
 (use-package ivy
   :config
@@ -312,3 +313,9 @@
   )
 
 (load-file "~/.centaurCustom/luna.el")
+
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; custom-post.el ends here
