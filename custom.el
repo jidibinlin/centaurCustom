@@ -56,11 +56,11 @@
 (setq org-roam-v2-ack t)
 (when (display-graphic-p)
   ;; Set default font
-  (cl-loop for font in '("DejaVu Sans Code" "DejaVuSansMono Nerd Font" "MonegoLigatures Nerd Font" "SFMono Nerd Font Mono" "SFMono Nerd Font"  "Hack" "Source Code Pro" "Fira Code" "Menlo" "Monaco" "Consolas")
+  (cl-loop for font in '("DejaVu Sans Code" "DejaVuSansMono Nerd Font"  "MonegoLigatures Nerd Font" "SFMono Nerd Font Mono" "SFMono Nerd Font"  "Hack" "Source Code Pro" "Fira Code" "Menlo" "Monaco" "Consolas")
            when (font-installed-p font)
            return (set-face-attribute 'default nil
                                       :family font
-                                      :height (cond (sys/mac-x-p 148)
+                                      :height (cond (sys/mac-x-p 145)
                                                     (sys/win32p 105)
                                                     (t 110))))
 
@@ -113,7 +113,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
- '(custom-theme-directory "~/.emacs.d/themes")
+                                        ;'(custom-theme-directory "~/.emacs.d/themes")
  '(vc-follow-symlinks nil)
  '(warning-suppress-types '((use-package)))
  )
