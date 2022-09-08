@@ -13,15 +13,16 @@
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;;(setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'warm)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-theme 'modus-vivendi)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 (setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
-(setq centaur-lsp 'lsp-mode)                      ; Set LSP client: lsp-mode, eglot or nil
+(setq centaur-lsp nil)
+                                        ; Set LSP client: lsp-mode, eglot or nil
 ;; (setq centaur-lsp-format-on-save-ignore-modes '(c-mode c++-mode)) ; Ignore format on save for some languages
 (setq centaur-tree-sitter t)
 (setq centaur-chinese-calendar nil)              ; Use Chinese calendar or not: t or nil
-;;(setq centaur-prettify-symbols-alist t)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
+;;(setq centaur-prettify-symbols-alist nil)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
 (setq centaur-prettify-org-symbols-alist '(("[ ]" . ?☐)
                                            ("[X]" . ?☑)
                                            ("[-]" . ?⛝)
@@ -43,6 +44,7 @@
                                            ("#+end_quote" . ?«)
                                            ("#+headers" . ?☰)
                                            ("#+results:" . ?💻)))  ; Alist of symbol prettifications for `org-mode'
+(setq centaur-blur t)
 (setenv "INFOPATH" "/opt/homebrew/share/info")
 (setenv "LSP_USE_PLISTS" "true")
 
@@ -54,11 +56,11 @@
 (setq org-roam-v2-ack t)
 (when (display-graphic-p)
   ;; Set default font
-  (cl-loop for font in '("DejaVu Sans Mono" "SFMono Nerd Font Mono" "SFMono Nerd Font"  "Hack" "Source Code Pro" "Fira Code" "Menlo" "Monaco" "Consolas")
+  (cl-loop for font in '("DejaVu Sans Code" "DejaVuSansMono Nerd Font" "MonegoLigatures Nerd Font" "SFMono Nerd Font Mono" "SFMono Nerd Font"  "Hack" "Source Code Pro" "Fira Code" "Menlo" "Monaco" "Consolas")
            when (font-installed-p font)
            return (set-face-attribute 'default nil
-                                      :font font
-                                      :height (cond (sys/mac-x-p 150)
+                                      :family font
+                                      :height (cond (sys/mac-x-p 148)
                                                     (sys/win32p 105)
                                                     (t 110))))
 
@@ -66,6 +68,12 @@
   (cl-loop for font in '("Symbol" "Symbola" "SFMono Nerd Font" "Apple Color Emoji" "Segoe UI Symbol")
            when (font-installed-p font)
            return(set-fontset-font t 'unicode font nil 'prepend))
+  ;; Emoji
+  (cl-loop for font in '("Apple Color Emoji" "Noto Color Emoji")
+           when (font-installed-p font)
+           return (if (>= emacs-major-version 28)
+                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend)
+                    (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
 
   ;; Specify font for Chinese characters
   (cl-loop for font in '("WenQuanYi Micro Hei" "Microsoft Yahei")
@@ -106,8 +114,8 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(custom-theme-directory "~/.emacs.d/themes")
- '(pixel-scroll-mode t)
  '(vc-follow-symlinks nil)
+ '(warning-suppress-types '((use-package)))
  )
 
 
@@ -116,6 +124,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ ;;'(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 180 :bold t))))
+ '(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 175 :bold nil))))
+ '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-evil-normal-state :foreground "#F92660" ))))
+ ;;'(marginalia-date ((t (:inherit font-lock-keyword-face :family "SFMono Nerd Font" :slant normal :height 150))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#FD971F"))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.2 :foreground "#A6E22E"))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.2 :foreground "#66D9EF"))))
