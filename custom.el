@@ -6,14 +6,14 @@
 
 
 ;; (setq centaur-logo nil)                        ; Logo file or nil (official logo)
-(setq centaur-full-name "jidibinlin")           ; User full name
+(setq centaur-full-name "jidibinlin")             ; User full name
 (setq centaur-mail-address "2694273649@qq.com")   ; Email address
 ;;(setq centaur-proxy "127.0.0.1:1087")          ; HTTP/HTTPS proxy
 (setq centaur-socks-proxy "127.0.0.1:7890")    ; SOCKS proxy
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;;(setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'modus-vivendi)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-theme 'auto)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 (setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
@@ -23,27 +23,8 @@
 (setq centaur-tree-sitter t)
 (setq centaur-chinese-calendar nil)              ; Use Chinese calendar or not: t or nil
 ;;(setq centaur-prettify-symbols-alist nil)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
-(setq centaur-prettify-org-symbols-alist '(("[ ]" . ?☐)
-                                           ("[X]" . ?☑)
-                                           ("[-]" . ?⛝)
+;; (setq centaur-prettify-org-symbols-alist '()) ; Alist of symbol prettifications for `org-mode'
 
-                                           ("#+ARCHIVE:" . ?📦)
-                                           ("#+AUTHOR:" . ?👤)
-                                           ("#+CREATOR:" . ?💁)
-                                           ("#+DATE:" . ?📆)
-                                           ("#+DESCRIPTION:" . ?⸙)
-                                           ("#+EMAIL:" . ?📧)
-                                           ("#+OPTIONS:" . ?⛭)
-                                           ("#+SETUPFILE:" . ?⛮)
-                                           ("#+TAGS:" . ?🏷)
-                                           ("#+TITLE:" . ?📓)
-
-                                           ("#+begin_src" . ?✎)
-                                           ("#+end_src" . ?□)
-                                           ("#+begin_quote" . ?»)
-                                           ("#+end_quote" . ?«)
-                                           ("#+headers" . ?☰)
-                                           ("#+results:" . ?💻)))  ; Alist of symbol prettifications for `org-mode'
 (setq centaur-blur t)
 (setenv "INFOPATH" "/opt/homebrew/share/info")
 (setenv "LSP_USE_PLISTS" "true")
@@ -113,7 +94,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
-                                        ;'(custom-theme-directory "~/.emacs.d/themes")
  '(vc-follow-symlinks nil)
  '(warning-suppress-types '((use-package)))
  )
