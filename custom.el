@@ -28,6 +28,7 @@
 (setq centaur-blur t)
 (setenv "INFOPATH" "/opt/homebrew/share/info")
 (setenv "LSP_USE_PLISTS" "true")
+(setenv "DOTNET_ROOT" "/usr/local/share/dotnet/")
 
 ;; For Emacs devel
 ;; (setq package-user-dir (locate-user-emacs-file (format "elpa-%s" emacs-major-version)))
@@ -108,14 +109,14 @@
  '(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 175 :bold nil))))
  '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-evil-normal-state :foreground "#F92660" ))))
  ;;'(marginalia-date ((t (:inherit font-lock-keyword-face :family "SFMono Nerd Font" :slant normal :height 150))))
- '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#FD971F"))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.2 :foreground "#A6E22E"))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.2 :foreground "#66D9EF"))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.2 :foreground "#E6DB74"))))
- '(org-level-5 ((t (:inherit outline-5 :height 1.2 :foreground "#A1EFE4"))))
- '(org-level-6 ((t (:inherit outline-6 :height 1.2 :foreground "#A6E22E"))))
- '(org-level-7 ((t (:inherit outline-7 :height 1.2 :foreground "#F92672"))))
- '(org-level-8 ((t (:inherit outline-8 :height 1.2 :foreground "#66D9EF"))))
+ ;; '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#FD971F"))))
+ ;; '(org-level-2 ((t (:inherit outline-2 :height 1.2 :foreground "#A6E22E"))))
+ ;; '(org-level-3 ((t (:inherit outline-3 :height 1.2 :foreground "#66D9EF"))))
+ ;; '(org-level-4 ((t (:inherit outline-4 :height 1.2 :foreground "#E6DB74"))))
+ ;; '(org-level-5 ((t (:inherit outline-5 :height 1.2 :foreground "#A1EFE4"))))
+ ;; '(org-level-6 ((t (:inherit outline-6 :height 1.2 :foreground "#A6E22E"))))
+ ;; '(org-level-7 ((t (:inherit outline-7 :height 1.2 :foreground "#F92672"))))
+ ;; '(org-level-8 ((t (:inherit outline-8 :height 1.2 :foreground "#66D9EF"))))
  )
 
 ;;; custom.el ends here

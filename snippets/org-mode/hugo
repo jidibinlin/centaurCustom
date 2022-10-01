@@ -3,18 +3,18 @@
 # key: hugo
 # --
 #+startup: latexpreview
-#+OPTIONS: author:nil ^:{}
 #+HUGO_BASE_DIR: ~/Documents/myblog
 #+HUGO_SECTION: /posts/`(format-time-string "%Y/%m")`
 #+HUGO_CUSTOM_FRONT_MATTER: :toc true :math true
 #+HUGO_AUTO_SET_LASTMOD: t
 #+HUGO_PAIRED_SHORTCODES: admonition
 #+HUGO_DRAFT: false
-#+DATE: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
 #+TITLE: $1
 #+HUGO_TAGS: $2
 #+HUGO_CATEGORIES: $3
 #+DESCRIPTION: $4
+#+DATE: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
+#+OPTIONS: author:nil ^:{}
 #+begin_export html
 <!--more-->
 #+end_export
