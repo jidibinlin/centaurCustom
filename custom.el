@@ -13,7 +13,7 @@
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;;(setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'auto)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-theme 'dark)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 (setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
@@ -41,9 +41,9 @@
            when (font-installed-p font)
            return (set-face-attribute 'default nil
                                       :family font
-                                      :height (cond (sys/mac-x-p 145)
+                                      :height (cond (sys/mac-x-p 130)
                                                     (sys/win32p 105)
-                                                    (t 110))))
+                                                    (t 100))))
 
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Symbol" "Symbola" "SFMono Nerd Font" "Apple Color Emoji" "Segoe UI Symbol")
@@ -105,17 +105,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  ;;'(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 180 :bold t))))
- '(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 175 :bold nil))))
+ '(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 170 :bold nil))))
  '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-evil-normal-state :foreground "#F92660" ))))
  ;;'(marginalia-date ((t (:inherit font-lock-keyword-face :family "SFMono Nerd Font" :slant normal :height 150))))
- '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#FD971F"))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.2 :foreground "#A6E22E"))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.2 :foreground "#66D9EF"))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.2 :foreground "#E6DB74"))))
- '(org-level-5 ((t (:inherit outline-5 :height 1.2 :foreground "#A1EFE4"))))
- '(org-level-6 ((t (:inherit outline-6 :height 1.2 :foreground "#A6E22E"))))
- '(org-level-7 ((t (:inherit outline-7 :height 1.2 :foreground "#F92672"))))
- '(org-level-8 ((t (:inherit outline-8 :height 1.2 :foreground "#66D9EF"))))
+ ;; '(org-level-1 ((t (:inherit outline-1 :height 1.2 :foreground "#FD971F"))))
+ ;; '(org-level-2 ((t (:inherit outline-2 :height 1.2 :foreground "#A6E22E"))))
+ ;; '(org-level-3 ((t (:inherit outline-3 :height 1.2 :foreground "#66D9EF"))))
+ ;; '(org-level-4 ((t (:inherit outline-4 :height 1.2 :foreground "#E6DB74"))))
+ ;; '(org-level-5 ((t (:inherit outline-5 :height 1.2 :foreground "#A1EFE4"))))
+ ;; '(org-level-6 ((t (:inherit outline-6 :height 1.2 :foreground "#A6E22E"))))
+ ;; '(org-level-7 ((t (:inherit outline-7 :height 1.2 :foreground "#F92672"))))
+ ;; '(org-level-8 ((t (:inherit outline-8 :height 1.2 :foreground "#66D9EF"))))
  )
 
 ;;; custom.el ends here

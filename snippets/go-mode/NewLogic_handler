@@ -4,4 +4,6 @@
 # --
 func $1(ctx *Context, msg proto.Message) error {
      $0
+
+    return nil
 }
