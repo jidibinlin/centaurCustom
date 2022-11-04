@@ -114,7 +114,7 @@
                  "--word" "~/Data/luna_word/luna_word_master/"))
 
 
-(setq luna_time "@2022-8-12 04:59:00")
+(setq luna_time "@2022-7-2 04:59:00")
 (setq luna_run "/Users/qibinyang/Data/luna_time_test/luna_time_tast.ros")
 (defun cycle-rank-test()
   "test luna game"

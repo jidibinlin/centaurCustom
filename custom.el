@@ -13,7 +13,7 @@
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 ;;(setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'dark)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-theme 'soft)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
 (setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
@@ -22,6 +22,7 @@
 ;; (setq centaur-lsp-format-on-save-ignore-modes '(c-mode c++-mode)) ; Ignore format on save for some languages
 (setq centaur-tree-sitter t)
 (setq centaur-chinese-calendar nil)              ; Use Chinese calendar or not: t or nil
+(setq centaur-search-backend "ivy")
 ;;(setq centaur-prettify-symbols-alist nil)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
 ;; (setq centaur-prettify-org-symbols-alist '()) ; Alist of symbol prettifications for `org-mode'
 
@@ -106,7 +107,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  ;;'(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 180 :bold t))))
- '(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 190 :bold nil))))
+ '(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 170 :bold nil))))
  '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-evil-normal-state :foreground "#F92660" ))))
  ;;'(marginalia-date ((t (:inherit font-lock-keyword-face :family "SFMono Nerd Font" :slant normal :height 150))))
  )
