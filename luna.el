@@ -131,6 +131,22 @@
   (start-process-shell-command "cycle_rank_test_center" (get-buffer "*Messages*") "alacritty -e /opt/cycle_test/game_center/makeGame.sh")
   )
 
+(defun cycle-rank-test-now ()
+  "test luna game base on the time of now"
+  (interactive)
+  (kill-luna)
+  (sleep-for 2)
+  (setq luna_time (format "@%s" (shell-command-to-string "echo -n $(date +%Y-%m-%d\\ %H:%M:%S)")))
+  (start-process "run_game" (get-buffer "*Messages*") luna_run "-e" "/opt/cycle_rank_test/game/game" "-t" luna_time)
+  (start-process-shell-command "cycle_rank_test" (get-buffer "*Messages*") "alacritty -e /opt/cycle_rank_test/game/makeGame.sh")
+
+  (start-process "run_game" (get-buffer "*Messages*") luna_run "-e" "/opt/cycle_rank_test/game2/game" "-t" luna_time)
+  (start-process-shell-command "cycle_rank_test2" (get-buffer "*Messages*") "alacritty -e /opt/cycle_rank_test/game2/makeGame.sh")
+
+  (start-process "run_game" (get-buffer "*Messages*") luna_run "-e" "/opt/cycle_rank_test/game_center/game" "-t" luna_time)
+  (start-process-shell-command "cycle_rank_test_center" (get-buffer "*Messages*") "alacritty -e /opt/cycle_rank_test/game_center/makeGame.sh")
+  )
+
 
 (defun kill-luna ()
   "kill all luna processes"
