@@ -90,6 +90,18 @@
                  "--client" "~/Data/luna/master/"
                  "--game_root" "~/Data/luna_game/"))
 
+(defun luna-genproto-for-test (&optional dont-focus)
+  (interactive)
+  (unless dont-focus
+    (switch-to-buffer "*Messages*" nil t)
+    (end-of-buffer))
+  (start-process "luna_releaser" (get-buffer "*Messages*")
+                 "protoc" "-I=/Users/qibinyang/go/pkg/mod/github.com/envoyproxy/protoc-gen-validate@v0.6.7/"
+                 "--plugin=protoc-gen-cl-pb=/usr/local/bin/protoc-gen-cl-pb"
+                 "--cl-pb_out=output-file=game.lisp:/Users/qibinyang/Documents/luna_test/"
+                 "--proto_path=/Users/qibinyang/Data/luna/master/tools/protobuf_cs/proto/"
+                 "game.proto"))
+
 (defun luna-genmodel(&optional dont-focus)
   "build luna with gen model"
   (interactive)
@@ -114,7 +126,7 @@
                  "--word" "~/Data/luna_word/luna_word_master/"))
 
 
-(setq luna_time "@2022-7-2 04:59:00")
+(setq luna_time "@2022-11-16 23:59:00")
 (setq luna_run "/Users/qibinyang/Data/luna_time_test/luna_time_tast.ros")
 (defun cycle-rank-test()
   "test luna game"
@@ -137,14 +149,14 @@
   (kill-luna)
   (sleep-for 2)
   (setq luna_time (format "@%s" (shell-command-to-string "echo -n $(date +%Y-%m-%d\\ %H:%M:%S)")))
-  (start-process "run_game" (get-buffer "*Messages*") luna_run "-e" "/opt/cycle_rank_test/game/game" "-t" luna_time)
-  (start-process-shell-command "cycle_rank_test" (get-buffer "*Messages*") "alacritty -e /opt/cycle_rank_test/game/makeGame.sh")
+  (start-process "run_game" (get-buffer "*Messages*") luna_run "-e" "/opt/cycle_test/game/game" "-t" luna_time)
+  (start-process-shell-command "cycle_rank_test" (get-buffer "*Messages*") "alacritty -e /opt/cycle_test/game/makeGame.sh")
 
-  (start-process "run_game" (get-buffer "*Messages*") luna_run "-e" "/opt/cycle_rank_test/game2/game" "-t" luna_time)
-  (start-process-shell-command "cycle_rank_test2" (get-buffer "*Messages*") "alacritty -e /opt/cycle_rank_test/game2/makeGame.sh")
+  (start-process "run_game" (get-buffer "*Messages*") luna_run "-e" "/opt/cycle_test/game2/game" "-t" luna_time)
+  (start-process-shell-command "cycle_rank_test2" (get-buffer "*Messages*") "alacritty -e /opt/cycle_test/game2/makeGame.sh")
 
-  (start-process "run_game" (get-buffer "*Messages*") luna_run "-e" "/opt/cycle_rank_test/game_center/game" "-t" luna_time)
-  (start-process-shell-command "cycle_rank_test_center" (get-buffer "*Messages*") "alacritty -e /opt/cycle_rank_test/game_center/makeGame.sh")
+  (start-process "run_game" (get-buffer "*Messages*") luna_run "-e" "/opt/cycle_test/game_center/game" "-t" luna_time)
+  (start-process-shell-command "cycle_rank_test_center" (get-buffer "*Messages*") "alacritty -e /opt/cycle_test/game_center/makeGame.sh")
   )
 
 
