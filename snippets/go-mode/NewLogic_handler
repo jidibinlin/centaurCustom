@@ -2,7 +2,7 @@
 # name: NewLogic handler
 # key: funcl
 # --
-func $1(ctx *Context, msg proto.Message) error {
+func ($1) $2($3) error {
      $0
 
     return nil
