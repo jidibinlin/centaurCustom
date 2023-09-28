@@ -8,30 +8,21 @@
 ;; (setq centaur-logo nil)                        ; Logo file or nil (official logo)
 (setq centaur-full-name "jidibinlin")             ; User full name
 (setq centaur-mail-address "2694273649@qq.com")   ; Email address
-;;(setq centaur-proxy "127.0.0.1:1087")          ; HTTP/HTTPS proxy
+;;(setq centaur-proxy "192.168.60.177:7890")          ; HTTP/HTTPS proxy
 (setq centaur-socks-proxy "127.0.0.1:7890")    ; SOCKS proxy
 (setq centaur-server t)                      ; Enable `server-mode' or not: t or nil
 (setq centaur-icon t)                        ; Display icons or not: t or nil
-(setq centaur-package-archives 'ustc)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
-(setq centaur-theme 'night-tinted)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
+(setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-china, netease, ustc, tencent or tuna
+(setq centaur-theme 'day)                     ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq centaur-completion-style 'childframe)    ; Completion display style: minibuffer or childframe
 ;; (setq centaur-dashboard nil)                   ; Use dashboard at startup or not: t or nil
-(setq centaur-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
-(setq centaur-lsp 'eglot)
+(setq centaur-lsp 'lsp-mode)
                                         ; Set LSP client: lsp-mode, eglot or nil
 ;; (setq centaur-lsp-format-on-save-ignore-modes '(c-mode c++-mode)) ; Ignore format on save for some languages
 (setq centaur-tree-sitter t)
 (setq centaur-chinese-calendar nil)              ; Use Chinese calendar or not: t or nil
-;;(setq centaur-prettify-symbols-alist nil)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
-;; (setq centaur-prettify-org-symbols-alist '()) ; Alist of symbol prettifications for `org-mode'
 
-(setq centaur-search 'vertico)
-
-(setq centaur-blur t)
-(setenv "INFOPATH" "/opt/homebrew/share/info")
-(setenv "LSP_USE_PLISTS" "true")
-(setenv "DOTNET_ROOT" "/usr/local/share/dotnet/")
-(set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
+(setq teamview-remote t)
 
 ;; For Emacs devel
 ;; (setq package-user-dir (locate-user-emacs-file (format "elpa-%s" emacs-major-version)))
@@ -40,16 +31,16 @@
 ;; Fonts
 (when (display-graphic-p)
   ;; Set default font
-  (cl-loop for font in '("Monaco" "DejaVuSansMono Nerd Font" "SFMono Nerd Font Mono" "SFMono Nerd Font" "DejaVu Sans Code" "MonegoLigatures Nerd Font" "Hack" "Source Code Pro" "Fira Code" "Menlo" "Consolas")
+  (cl-loop for font in '("Iosevka Comfy Motion" "UbuntuMono Nerd Font" "Consolas" "Monaco" "DejaVuSansMono Nerd Font" "SFMono Nerd Font Mono" "SFMono Nerd Font" "DejaVu Sans Code" "MonegoLigatures Nerd Font" "Hack" "Source Code Pro" "Fira Code" "Menlo")
            when (font-installed-p font)
            return (set-face-attribute 'default nil
                                       :family font
                                       :height (cond (sys/mac-x-p 115)
                                                     (sys/win32p 105)
-                                                    (t 100))))
+                                                    (t 105))))
 
   ;; Specify font for all unicode characters
-  (cl-loop for font in '("Symbol" "Symbola" "SFMono Nerd Font" "Apple Color Emoji" "Segoe UI Symbol")
+  (cl-loop for font in '("Symbols Nerd Font Mono" "Symbola" "SFMono Nerd Font" "Apple Color Emoji" "Segoe UI Symbol")
            when (font-installed-p font)
            return(set-fontset-font t 'unicode font nil 'prepend))
   ;; Emoji
@@ -96,9 +87,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auth-source-save-behavior nil)
- '(vc-follow-symlinks nil)
- '(warning-suppress-types '((use-package))))
+ )
 
 
 ;;; custom.el ends here
@@ -108,10 +97,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;;'(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 180 :bold t))))
- ;; '(font-lock-keyword-face ((t (:slant italic :family "UbuntuMono Nerd Font" :height 150 :bold nil))))
- '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-evil-normal-state :foreground "#F92660" ))))
- ;;'(marginalia-date ((t (:inherit font-lock-keyword-face :family "SFMono Nerd Font" :slant normal :height 150))))
  )
 
 (load "~/.centaurCustom/luna.el")
